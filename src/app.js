@@ -199,6 +199,15 @@ $("#seek").onclick=e=>{const r=e.currentTarget.getBoundingClientRect();if(aud.du
 $("#pspd").onclick=()=>{spI=(spI+1)%SP.length;aud.playbackRate=SP[spI];$("#pspd").textContent=ar(SP[spI])+"×"};
 LEAVE[5]=()=>aud.pause();
 
+/* ========== 6 KWL ========== */
+const KCOLS=[["ماذا أعرف؟","#D98A1C","#FFE7A8"],["ماذا أريد أن أعرف؟","#5A45B5","#E4DDFB"],["ماذا تعلمت؟","#11806F","#CDEFE6"]];
+let kwl=store.get("kwl",[[],[],[]]);
+function renderKwl(){$("#kwl").innerHTML=KCOLS.map(([t,c,bg],i)=>`<div class="kcol"><h4><i style="background:${c}"></i>${t}</h4>${kwl[i].map((s,j)=>`<div class="knote" style="background:${bg}"><span>${esc(s)}</span><button data-c="${i}" data-j="${j}" aria-label="حذف">×</button></div>`).join("")}</div>`).join("")}
+function addKwl(){const v=$("#kwlIn").value.trim();if(!v)return;kwl[+$("#kwlCol").value].push(v);store.set("kwl",kwl);$("#kwlIn").value="";renderKwl();sfx.ok()}
+$("#kwlAdd").onclick=addKwl;$("#kwlIn").onkeydown=e=>{if(e.key==="Enter")addKwl()};
+$("#kwl").onclick=e=>{const b=e.target.closest("button[data-c]");if(!b)return;kwl[+b.dataset.c].splice(+b.dataset.j,1);store.set("kwl",kwl);renderKwl()};
+renderKwl();
+
 /* ========== 7 vocab ========== */
 const VOC=[
   {w:"يَدْرَءُونَ",c:"﴿وَيَدْرَءُونَ بِالْحَسَنَةِ السَّيِّئَةَ﴾",o:["يدفعون","يُردّون","يستعجلون"],a:0},

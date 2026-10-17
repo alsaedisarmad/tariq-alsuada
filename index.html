@@ -346,6 +346,18 @@ h3{font-size:1.15rem;margin:0 0 8px;font-weight:700;color:var(--plum)}
 .goal p{margin:0;font-weight:600;font-size:1.05rem}
 .goal .go{font-size:.8rem;color:var(--ink2);white-space:nowrap}
 
+.kwl{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kcol{background:var(--card2);border:1.5px dashed var(--line);border-radius:16px;padding:10px;min-height:150px}
+.kcol h4{margin:0 0 8px;font-size:.9rem;display:flex;align-items:center;gap:6px;color:var(--ink)}
+.kcol h4 i{width:10px;height:10px;border-radius:50%;flex:none}
+.knote{display:flex;align-items:flex-start;gap:6px;border-radius:10px;padding:6px 8px;margin-bottom:6px;font-size:.88rem;font-weight:600;line-height:1.7;color:#2B2244;animation:pop .35s}
+.knote span{flex:1}
+.knote button{border:0;background:none;color:#2B224499;font-size:1rem;line-height:1;padding:0 2px}
+.kadd{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.kadd input{flex:1;min-width:160px}
+.kadd select{width:auto}
+@media (max-width:640px){.kwl{grid-template-columns:1fr}.kcol{min-height:0}}
+
 /* ---------- 7 vocab ---------- */
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:14px}
 .vcard{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px;transition:border-color .3s,background .3s}
@@ -846,13 +858,21 @@ input[type=range]{width:100%;accent-color:var(--sea)}
 
 <!-- ============ 6 GOALS ============ -->
 <section class="st" data-title="أهداف الدرس" data-chap="الآيات">
-<div class="wrap" style="max-width:900px">
-  <div class="head"><span class="kick"><i>٥</i>الأهداف</span><h2>إلى أين <mark>سنمضي</mark> اليوم؟</h2>
+<div class="wrap">
+  <div class="head"><span class="kick"><i>٥</i>أهداف الدرس وجدول التعلم</span><h2>إلى أين <mark>سنمضي</mark> اليوم؟</h2>
   <p class="lead">بعد أن تلونا الآيات، هذه ثلاثة أهداف نسعى إليها. المسي الهدف للانتقال إلى محطته.</p></div>
+  <div class="grid2 even">
   <div class="goals">
     <button class="goal" style="--c:var(--sun)" data-go="7"><span class="tg"><svg style="fill:var(--sun);stroke:var(--sun)"><use href="#i-target"/></svg></span><p>أن تبيّني معاني المفردات الآتية: يدرؤون، جنات عدن، يَقْدِر، طوبى، حسن مآب.</p><span class="go">معاني الكلمات ←</span></button>
     <button class="goal" style="--c:var(--sea)" data-go="8"><span class="tg"><svg style="fill:var(--sea);stroke:var(--sea)"><use href="#i-target"/></svg></span><p>أن تقارني من خلال الآيات بين صفات السعداء وصفات الأشقياء.</p><span class="go">مفترق الطريقين ←</span></button>
     <button class="goal" style="--c:var(--rose)" data-go="12"><span class="tg"><svg style="fill:var(--rose);stroke:var(--rose)"><use href="#i-target"/></svg></span><p>أن تستخلصي ما تضمنته الآيات من الآداب الاجتماعية.</p><span class="go">التهنئة وصلة الرحم ←</span></button>
+  </div>
+  <div class="card">
+    <h3>جدول التعلم</h3>
+    <p class="note" style="margin-top:-4px">نملأ العمودين الأولين الآن، ونعود إلى «ماذا تعلمت؟» في غلق الدرس. يُحفظ الجدول على هذا الجهاز.</p>
+    <div class="kwl" id="kwl"></div>
+    <div class="kadd"><input class="field" id="kwlIn" placeholder="اكتبي فكرة قصيرة…" maxlength="80"><select class="field" id="kwlCol"><option value="0">ماذا أعرف؟</option><option value="1">ماذا أريد أن أعرف؟</option><option value="2">ماذا تعلمت؟</option></select><button class="btn sm" id="kwlAdd">إضافة</button></div>
+  </div>
   </div>
 </div>
 </section>
@@ -1163,14 +1183,13 @@ input[type=range]{width:100%;accent-color:var(--sea)}
   <div class="card quiz" id="quiz"></div>
   <div class="card sun mt">
     <span class="tag sun">أتأمل وأجيب</span>
-    <h3 style="margin-top:8px">من خلال قراءتك لآيات الدرس، قارني بين صفات السعداء وصفات الأشقياء في الآخرة.</h3>
+    <h3 style="margin-top:8px">من خلال قراءتك لآيات الدرس، قارني بين جزاء السعداء وجزاء الأشقياء في الآخرة.</h3>
     <button class="btn sm sun" data-reveal="cmpAns">اكشفي المقارنة</button>
     <div class="reveal" id="cmpAns"><div>
-      <table class="cmp mt"><tr><th>السعداء</th><th>الأشقياء</th></tr>
+      <table class="cmp mt"><tr><th>جزاء السعداء</th><th>جزاء الأشقياء</th></tr>
         <tr><td>لهم عقبى الدار: الجنة.</td><td>لهم سوء الدار.</td></tr>
         <tr><td>جنات عدنٍ دائمة يدخلونها ومعهم الصالحون من آبائهم وأزواجهم وذرياتهم.</td><td>لهم اللعنة: الطرد والإبعاد من رحمة الله.</td></tr>
-        <tr><td>تدخل عليهم الملائكة من كل باب بالسلام والتهنئة.</td><td>مصيرهم إلى سوء المستقرّ يوم القيامة.</td></tr>
-        <tr><td>طوبى لهم وحسن مآب.</td><td>نقضوا العهد، وقطعوا ما أمر الله به أن يوصل، وأفسدوا في الأرض.</td></tr>
+        <tr><td>تدخل عليهم الملائكة من كل باب بالسلام والتهنئة، وطوبى لهم وحسن مآب.</td><td>مصيرهم إلى سوء المستقرّ يوم القيامة.</td></tr>
       </table>
     </div></div>
   </div>
@@ -1212,6 +1231,7 @@ input[type=range]{width:100%;accent-color:var(--sea)}
     <div class="sticky p"><b>سأطبّق ما تعلّمته من خلال…</b><textarea maxlength="200" placeholder="اكتبي هنا…"></textarea></div>
     <div class="sticky g"><b>معلومة أعجبتني</b><textarea maxlength="200" placeholder="اكتبي هنا…"></textarea></div>
   </div>
+  <div class="row center mt"><button class="btn sea sm" data-go="6">أكملي «ماذا تعلمت؟» في جدول التعلم</button></div>
   <div class="card mt" style="display:flex;gap:14px;align-items:center;max-width:620px;margin-inline:auto"><span class="tag rose">الواجب</span><b>حلّ واجب الدرس على منصة مدرستي</b></div>
   <div class="closing"><p class="big">جعلكنّ الله من السعداء، أولي الألباب</p><p class="q" style="font-size:1.5rem;color:var(--sea);margin:0">﴿طُوبَىٰ لَهُمْ وَحُسْنُ مَآبٍ﴾</p><button class="btn ghost sm mt" data-go="0"><svg><use href="#i-replay"/></svg> العودة إلى البداية</button></div>
 </div>
@@ -1473,6 +1493,15 @@ aud.addEventListener("loadedmetadata",()=>$("#ptime").textContent=fmt(0)+" / "+f
 $("#seek").onclick=e=>{const r=e.currentTarget.getBoundingClientRect();if(aud.duration)aud.currentTime=(e.clientX-r.left)/r.width*aud.duration};
 $("#pspd").onclick=()=>{spI=(spI+1)%SP.length;aud.playbackRate=SP[spI];$("#pspd").textContent=ar(SP[spI])+"×"};
 LEAVE[5]=()=>aud.pause();
+
+/* ========== 6 KWL ========== */
+const KCOLS=[["ماذا أعرف؟","#D98A1C","#FFE7A8"],["ماذا أريد أن أعرف؟","#5A45B5","#E4DDFB"],["ماذا تعلمت؟","#11806F","#CDEFE6"]];
+let kwl=store.get("kwl",[[],[],[]]);
+function renderKwl(){$("#kwl").innerHTML=KCOLS.map(([t,c,bg],i)=>`<div class="kcol"><h4><i style="background:${c}"></i>${t}</h4>${kwl[i].map((s,j)=>`<div class="knote" style="background:${bg}"><span>${esc(s)}</span><button data-c="${i}" data-j="${j}" aria-label="حذف">×</button></div>`).join("")}</div>`).join("")}
+function addKwl(){const v=$("#kwlIn").value.trim();if(!v)return;kwl[+$("#kwlCol").value].push(v);store.set("kwl",kwl);$("#kwlIn").value="";renderKwl();sfx.ok()}
+$("#kwlAdd").onclick=addKwl;$("#kwlIn").onkeydown=e=>{if(e.key==="Enter")addKwl()};
+$("#kwl").onclick=e=>{const b=e.target.closest("button[data-c]");if(!b)return;kwl[+b.dataset.c].splice(+b.dataset.j,1);store.set("kwl",kwl);renderKwl()};
+renderKwl();
 
 /* ========== 7 vocab ========== */
 const VOC=[

@@ -337,6 +337,18 @@ h3{font-size:1.15rem;margin:0 0 8px;font-weight:700;color:var(--plum)}
 .goal p{margin:0;font-weight:600;font-size:1.05rem}
 .goal .go{font-size:.8rem;color:var(--ink2);white-space:nowrap}
 
+.kwl{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kcol{background:var(--card2);border:1.5px dashed var(--line);border-radius:16px;padding:10px;min-height:150px}
+.kcol h4{margin:0 0 8px;font-size:.9rem;display:flex;align-items:center;gap:6px;color:var(--ink)}
+.kcol h4 i{width:10px;height:10px;border-radius:50%;flex:none}
+.knote{display:flex;align-items:flex-start;gap:6px;border-radius:10px;padding:6px 8px;margin-bottom:6px;font-size:.88rem;font-weight:600;line-height:1.7;color:#2B2244;animation:pop .35s}
+.knote span{flex:1}
+.knote button{border:0;background:none;color:#2B224499;font-size:1rem;line-height:1;padding:0 2px}
+.kadd{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.kadd input{flex:1;min-width:160px}
+.kadd select{width:auto}
+@media (max-width:640px){.kwl{grid-template-columns:1fr}.kcol{min-height:0}}
+
 /* ---------- 7 vocab ---------- */
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:14px}
 .vcard{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px;transition:border-color .3s,background .3s}
