@@ -653,6 +653,8 @@ a.ib{color:inherit;text-decoration:none}
 .cert-box .field{max-width:380px;margin:8px auto;text-align:center}
 .cert-box img{width:100%;max-width:640px;border-radius:14px;margin:12px auto 4px;display:block;box-shadow:var(--sh)}
 .cert-box .note{margin:4px 0 0}
+.cert-box.locked{border-color:var(--line);background:var(--card)}
+.cert-box.locked h3{color:var(--ink2)}
 .imgsheet{position:fixed;inset:0;z-index:85;display:grid;place-items:center;padding:16px;background:#120e2acc;opacity:0;pointer-events:none;transition:opacity .3s}
 .imgsheet.on{opacity:1;pointer-events:auto}
 .imgsheet .box{background:var(--card);border-radius:26px;padding:18px;width:min(640px,100%);max-height:100%;overflow:auto;text-align:center}
@@ -1419,6 +1421,16 @@ a.ib{color:inherit;text-decoration:none}
 </div>
 </section>
 
+<!-- ============ CERTIFICATE (shared, inserted after the quiz) ============ -->
+<section class="st" data-title="الشهادة" data-chap="الختام">
+<div class="wrap" style="max-width:900px">
+  <div class="head"><span class="kick"><i><svg width="16" height="16" style="fill:none;stroke:currentColor;stroke-width:2"><use href="#i-award"/></svg></i>الشهادة</span><h2>شهادة <mark>تميّز</mark></h2>
+  <p class="lead">تحصل على الشهادة من تجيب في التقويم بنسبة ٧٠٪ فأكثر.</p></div>
+  <div id="certArea"></div>
+</div>
+</section>
+
+
 <!-- ============ 21 GAME + IDEAS ============ -->
 <section class="st" data-title="أناقش وأستنبط" data-chap="الختام">
 <div class="wrap">
@@ -1751,20 +1763,24 @@ async function drawCert(){
 }
 function queueCert(){clearTimeout(certT);certT=setTimeout(drawCert,250)}
 function certReady(){if(!$("#certName").value.trim()){toast("اكتبي اسمك أولًا");$("#certName").focus();return false}if(!certURL){toast("لحظة… يتم تجهيز الشهادة");drawCert();return false}return true}
-function certBox(pct){
-  certPct=pct;certURL="";
-  return `<div class="cert-box"><h3><svg width="28" height="28" style="vertical-align:-6px;fill:none;stroke:currentColor;stroke-width:1.8"><use href="#i-award"/></svg> استحققتِ شهادة</h3>
-    <p class="note">اكتبي اسمك الثلاثي كما تريدين أن يظهر في الشهادة.</p>
+/* محطة «الشهادة» تُضاف بعد التقويم عند البناء؛ تُفتح بنتيجة آخر محاولة في التقويم */
+const QUIZ_I=ST.findIndex(s=>s.querySelector("#quiz")),CERT_I=ST.findIndex(s=>s.querySelector("#certArea"));
+const AWARD=`<svg width="28" height="28" style="vertical-align:-6px;fill:none;stroke:currentColor;stroke-width:1.8"><use href="#i-award"/></svg>`;
+function certRender(){
+  const A=$("#certArea");if(!A)return;const pct=store.get("certPct",0);certURL="";
+  if(pct<CERT_MIN){A.innerHTML=`<div class="cert-box locked"><h3>${AWARD} الشهادة مقفلة</h3><p class="note">أجيبي عن أسئلة التقويم بنسبة ${ar(CERT_MIN)}٪ فأكثر لتظهر شهادتك هنا.</p><button class="btn sun sm mt" data-go="${QUIZ_I}">إلى التقويم</button></div>`;return}
+  certPct=pct;
+  A.innerHTML=`<div class="cert-box"><h3>${AWARD} استحققتِ شهادة</h3>
+    <p class="note">نتيجتك في التقويم ${ar(pct)}٪. اكتبي اسمك الثلاثي كما تريدين أن يظهر في الشهادة.</p>
     <input class="field" id="certName" maxlength="40" placeholder="اسم الطالبة" value="${esc(store.get("certName",""))}">
     <img id="certImg" alt="الشهادة" hidden>
     <div class="row center mt"><button class="btn sun sm" id="certPrint"><svg><use href="#i-print"/></svg> طباعة الشهادة</button><button class="btn sm" id="certSave"><svg><use href="#i-save"/></svg> حفظ صورة / مشاركة</button></div></div>`;
-}
-function certBind(){
   $("#certName").oninput=e=>{store.set("certName",e.target.value);queueCert()};
   $("#certPrint").onclick=()=>{if(certReady())printImage(certURL,"شهادة.png")};
   $("#certSave").onclick=()=>{if(certReady()){sfx.win();shareImage(certURL,certFile,"شهادة.png","شهادة تميّز")}};
   drawCert();
 }
+certRender();
 
 /* ---------- quiz: QZ=[[question, options, answerIndex, why?]] ---------- */
 function quizInit(QZ,MSG){
@@ -1772,8 +1788,9 @@ function quizInit(QZ,MSG){
   const isQ=x=>x.startsWith("﴿")||(/[ً-ْ]/.test(x)&&x.length<22);
   function render(){
     if(qI>=QZ.length){const s=qRes.filter(Boolean).length,pct=Math.round(s/QZ.length*100),pass=pct>=CERT_MIN;
-      Q.innerHTML=`<div style="text-align:center"><p class="qn">النتيجة</p><p style="font-family:Display;font-size:3rem;color:var(--plum);margin:0">${ar(s)} / ${ar(QZ.length)}</p><p class="note" style="margin:0">${ar(pct)}٪</p><p style="font-weight:700">${s===QZ.length?MSG.full:pass?MSG.good:MSG.low}</p><button class="btn ghost sm" id="qAgain"><svg><use href="#i-replay"/></svg> إعادة التقويم</button></div>${pass?certBox(pct):`<p class="note" style="text-align:center">تحصل على الشهادة من تجيب بنسبة ${ar(CERT_MIN)}٪ فأكثر.</p>`}`;
-      $("#qAgain").onclick=()=>{qI=0;qRes=[];render()};if(pass){certBind();confetti();sfx.win()}return}
+      Q.innerHTML=`<div style="text-align:center"><p class="qn">النتيجة</p><p style="font-family:Display;font-size:3rem;color:var(--plum);margin:0">${ar(s)} / ${ar(QZ.length)}</p><p class="note" style="margin:0">${ar(pct)}٪</p><p style="font-weight:700">${s===QZ.length?MSG.full:pass?MSG.good:MSG.low}</p><button class="btn ghost sm" id="qAgain"><svg><use href="#i-replay"/></svg> إعادة التقويم</button></div>${pass?`<div class="cert-box"><h3>${AWARD} استحققتِ شهادة</h3><button class="btn sun" data-go="${CERT_I}">استلمي شهادتك <svg><use href="#i-next"/></svg></button></div>`:`<p class="note" style="text-align:center">تحصل على الشهادة من تجيب بنسبة ${ar(CERT_MIN)}٪ فأكثر.</p>`}`;
+      store.set("certPct",pct);certRender();
+      $("#qAgain").onclick=()=>{qI=0;qRes=[];render()};if(pass){confetti();sfx.win()}return}
     const[t,o,a,why]=QZ[qI];
     Q.innerHTML=`<div class="qdots">${QZ.map((_,k)=>`<i class="${k<qI?(qRes[k]?"ok":"no"):k===qI?"cur":""}"></i>`).join("")}</div><div class="qn">السؤال ${ar(qI+1)} من ${ar(QZ.length)}</div><div class="qq">${t}</div><div class="qo">${o.map((x,k)=>`<button data-k="${k}"><i>${"أبجد"[k]}</i><span class="${isQ(x)?"q":""}" style="${isQ(x)?"font-size:1.15rem;line-height:2":""}">${x}</span></button>`).join("")}</div><div class="fb" id="qFb"></div><div class="row" id="qNextRow" hidden><button class="btn" id="qNext">${qI===QZ.length-1?"النتيجة":"التالي"} <svg><use href="#i-next"/></svg></button></div>`;
     $(".qo",Q).onclick=e=>{const b=e.target.closest("button");if(!b||Q.dataset.lock==="1")return;Q.dataset.lock="1";const k=+b.dataset.k,ok=k===a;qRes[qI]=ok;

@@ -9,6 +9,7 @@
 """
 import base64
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -102,9 +103,19 @@ def write(rel, html):
     print("built", rel, len(html) // 1024, "KB")
 
 
+def add_cert(sections):
+    """يضيف محطة الشهادة المشتركة بعد محطة التقويم مباشرة."""
+    q = sections.index('id="quiz"')
+    start = sections.rindex("<section", 0, q)
+    chap = re.search(r'data-chap="([^"]+)"', sections[start:q]).group(1)
+    end = sections.index("</section>", q) + len("</section>")
+    return sections[:end] + "\n" + read("shared/cert.html").replace("{{CHAP}}", chap) + sections[end:]
+
+
 def build_lesson(L):
     d = "lessons/" + L["id"] + "/"
     p = parts(read(d + "lesson.html"))
+    p["sections"] = add_cert(p["sections"])
     css = read("shared/base.css")
     if os.path.exists(os.path.join(ROOT, d + "lesson.css")):
         css += "\n" + read(d + "lesson.css")
