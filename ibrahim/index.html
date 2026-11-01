@@ -1268,7 +1268,7 @@ a.ib{color:inherit;text-decoration:none}
   <div class="verse sm">﴿أَلَمْ تَرَ إِلَى الَّذِينَ بَدَّلُوا نِعْمَتَ اللَّهِ كُفْرًا وَأَحَلُّوا قَوْمَهُمْ دَارَ الْبَوَارِ ۝ جَهَنَّمَ يَصْلَوْنَهَا ۖ وَبِئْسَ الْقَرَارُ ۝ وَجَعَلُوا لِلَّهِ أَندَادًا لِّيُضِلُّوا عَن سَبِيلِهِ ۗ قُلْ تَمَتَّعُوا فَإِنَّ مَصِيرَكُمْ إِلَى النَّارِ﴾<span class="ref">[إبراهيم: ٢٨–٣٠]</span></div>
   <p class="lead">أشارك مع مجموعتي: المسي كل سؤال لتظهر إجابته.</p></div>
   <div class="qcards" id="qcards">
-    <button class="qc" data-flip><b>من المخاطب بقوله تعالى: ﴿أَلَمْ تَرَ﴾؟</b><span>ألم تنظر أيها المخاطب، والمراد العموم.</span></button>
+    <button class="qc" data-flip><b>من المخاطب بقوله تعالى: <span class="q" style="color:var(--sea);font-weight:400">﴿أَلَمْ تَرَ﴾</span>؟</b><span>ألم تنظر أيها المخاطب، والمراد العموم.</span></button>
     <button class="qc" data-flip><b>من المقصود بقوله تعالى: «الذين»؟</b><span>المكذبون من كفار قريش.</span></button>
     <button class="qc" data-flip><b>ما أعظم نعمة منّ الله بها عليهم؟</b><span>إرسال النبي ﷺ إليهم، ونعمة الأمن بالحرم.</span></button>
     <button class="qc" data-flip><b>ما أعمالهم؟ وبمَ استبدلوا نعمة الله؟</b><span>اختاروا الكفر بالله بدلًا من شكره؛ فلم يؤمنوا بالله، ولم يؤمنوا برسالة رسوله ﷺ، ولم يشكروا الله عليها.</span></button>
@@ -1755,7 +1755,7 @@ async function drawCert(){
   x.fillStyle="#1D1A31";x.font="600 40px Body";
   wrapLines(x,"لاجتيازها تقويم درس «"+BD.lesson+"» بنسبة "+ar(certPct)+"٪",W-360).forEach((l,i)=>x.fillText(l,W/2,660+i*60));
   x.fillStyle="#5E5A75";x.font="400 32px Body";x.fillText($(".ttl span").textContent.split("|")[0].trim(),W/2,750);
-  let dt="";try{dt=new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(new Date())}catch(e){}
+  let dt="";try{dt=new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(new Date(store.get("certDate",Date.now())))}catch(e){}
   x.fillStyle="#5E5A75";x.font="400 28px Body";if(dt)x.fillText(dt,W/2,975);
   /* RTL: الأستاذة يسارًا مع التوقيع، والمديرة يمينًا */
   x.font="400 30px Body";x.fillStyle="#5E5A75";x.fillText("أستاذة المادة",390,850);x.fillText("مديرة المدرسة",W-390,850);
@@ -1793,14 +1793,15 @@ certRender();
 /* ---------- quiz: QZ=[[question, options, answerIndex, why?]] ---------- */
 function quizInit(QZ,MSG){
   let qI=0,qRes=[];const Q=$("#quiz");
-  const isQ=x=>x.startsWith("﴿")||(/[ً-ْ]/.test(x)&&x.length<22);
+  /* خط المصحف للآيات فقط (﴿…﴾)، أو حين تكون كل الخيارات كلمات قرآنية مشكولة؛ وإلا فكل الخيارات بخط واحد */
+  const isAya=x=>x.startsWith("﴿"),isWord=x=>/[ً-ْ]/.test(x)&&x.length<22;
   function render(){
     if(qI>=QZ.length){const s=qRes.filter(Boolean).length,pct=Math.round(s/QZ.length*100),pass=pct>=CERT_MIN;
       Q.innerHTML=`<div style="text-align:center"><p class="qn">النتيجة</p><p style="font-family:Display;font-size:3rem;color:var(--plum);margin:0">${ar(s)} / ${ar(QZ.length)}</p><p class="note" style="margin:0">${ar(pct)}٪</p><p style="font-weight:700">${s===QZ.length?MSG.full:pass?MSG.good:MSG.low}</p><button class="btn ghost sm" id="qAgain"><svg><use href="#i-replay"/></svg> إعادة التقويم</button></div>${pass?`<div class="cert-box"><h3>${AWARD} استحققتِ شهادة</h3><button class="btn sun" data-go="${CERT_I}">استلمي شهادتك <svg><use href="#i-next"/></svg></button></div>`:`<p class="note" style="text-align:center">تحصل على الشهادة من تجيب بنسبة ${ar(CERT_MIN)}٪ فأكثر.</p>`}`;
-      store.set("certPct",pct);certRender();
+      store.set("certPct",pct);if(pass)store.set("certDate",Date.now());certRender();
       $("#qAgain").onclick=()=>{qI=0;qRes=[];render()};if(pass){confetti();sfx.win()}return}
-    const[t,o,a,why]=QZ[qI];
-    Q.innerHTML=`<div class="qdots">${QZ.map((_,k)=>`<i class="${k<qI?(qRes[k]?"ok":"no"):k===qI?"cur":""}"></i>`).join("")}</div><div class="qn">السؤال ${ar(qI+1)} من ${ar(QZ.length)}</div><div class="qq">${t}</div><div class="qo">${o.map((x,k)=>`<button data-k="${k}"><i>${"أبجد"[k]}</i><span class="${isQ(x)?"q":""}" style="${isQ(x)?"font-size:1.15rem;line-height:2":""}">${x}</span></button>`).join("")}</div><div class="fb" id="qFb"></div><div class="row" id="qNextRow" hidden><button class="btn" id="qNext">${qI===QZ.length-1?"النتيجة":"التالي"} <svg><use href="#i-next"/></svg></button></div>`;
+    const[t,o,a,why]=QZ[qI],allWords=o.every(x=>isAya(x)||isWord(x)),isQ=x=>isAya(x)||allWords;
+    Q.innerHTML=`<div class="qdots">${QZ.map((_,k)=>`<i class="${k<qI?(qRes[k]?"ok":"no"):k===qI?"cur":""}"></i>`).join("")}</div><div class="qn">السؤال ${ar(qI+1)} من ${ar(QZ.length)}</div><div class="qq">${t}</div><div class="qo">${o.map((x,k)=>`<button data-k="${k}"><i>${"أبجد"[k]}</i><span class="${isQ(x)?"q":""}" style="${isQ(x)?"font-size:1.35rem;line-height:1.9":""}">${x}</span></button>`).join("")}</div><div class="fb" id="qFb"></div><div class="row" id="qNextRow" hidden><button class="btn" id="qNext">${qI===QZ.length-1?"النتيجة":"التالي"} <svg><use href="#i-next"/></svg></button></div>`;
     $(".qo",Q).onclick=e=>{const b=e.target.closest("button");if(!b||Q.dataset.lock==="1")return;Q.dataset.lock="1";const k=+b.dataset.k,ok=k===a;qRes[qI]=ok;
       $$(".qo button",Q)[a].classList.add("ok");if(!ok)b.classList.add("no");ok?sfx.ok():sfx.no();
       if(why){$("#qFb").className="fb "+(ok?"ok":"no");$("#qFb").textContent=why}$("#qNextRow").hidden=false};
