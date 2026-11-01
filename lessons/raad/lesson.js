@@ -1,125 +1,4 @@
-"use strict";
-const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-const AR="٠١٢٣٤٥٦٧٨٩",ar=n=>String(n).replace(/\d/g,d=>AR[d]);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
-const store={get(k,d){try{const v=localStorage.getItem("raad14:"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("raad14:"+k,JSON.stringify(v))}catch(e){}}};
-
-/* ---------- sound, toast, confetti ---------- */
-const sfx=(()=>{let ctx;const tone=(f,d=.12,type="sine",g=.07,delay=0)=>{try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();const t=ctx.currentTime+delay,o=ctx.createOscillator(),v=ctx.createGain();o.type=type;o.frequency.setValueAtTime(f,t);v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v).connect(ctx.destination);o.start(t);o.stop(t+d+.02)}catch(e){}};
-  return{tap:()=>tone(660,.05,"triangle",.04),ok:()=>{tone(660,.12);tone(880,.16,"sine",.07,.1)},no:()=>tone(190,.18,"square",.035),win:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.22,"sine",.07,i*.11)),page:()=>tone(440,.05,"triangle",.025)}})();
-let toastT;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),2600)}
-function confetti(){const box=document.createElement("div");box.className="confetti";const C=["#F6C66B","#C93A60","#11806F","#5A45B5","#D98A1C"];
-  for(let i=0;i<70;i++){const p=document.createElement("i");p.style.left=Math.random()*100+"vw";p.style.background=C[i%C.length];p.style.setProperty("--dx",(Math.random()*200-100)+"px");p.style.setProperty("--r",(Math.random()*720-360)+"deg");p.style.animationDuration=(1.6+Math.random()*1.6)+"s";p.style.animationDelay=Math.random()*.4+"s";box.appendChild(p)}
-  document.body.appendChild(box);setTimeout(()=>box.remove(),3800)}
-
-/* ---------- navigation ---------- */
-const ST=$$(".st");let cur=-1;
-const CHAPS=[["البداية","var(--sun)"],["الآيات","var(--sea)"],["الطريقان","var(--plum2)"],["الأثر","var(--rose)"],["الختام","var(--ash)"]];
-const seen=new Set(store.get("seen",[]));
-const ENTER={},LEAVE={};
-function go(i){
-  i=Math.max(0,Math.min(ST.length-1,+i||0));if(i===cur)return;
-  if(LEAVE[cur])LEAVE[cur]();
-  ST.forEach((s,k)=>{s.classList.toggle("on",k===i);s.classList.toggle("back",k<i)});
-  cur=i;seen.add(i);store.set("seen",[...seen]);store.set("cur",i);
-  const s=ST[i];s.scrollTop=0;
-  $("#progFill").style.width=(i/(ST.length-1)*100)+"%";
-  $("#whereChap").textContent=s.dataset.chap;$("#whereTitle").textContent=s.dataset.title;$("#whereN").textContent=ar(i+1)+" / "+ar(ST.length);
-  $("#prev").disabled=i===0;$("#next").disabled=i===ST.length-1;
-  if(history.replaceState)history.replaceState(null,"","#s"+i);
-  if(ENTER[i])ENTER[i]();
-  sfx.page();
-}
-$("#prev").onclick=()=>go(cur-1);$("#next").onclick=()=>go(cur+1);
-function buildMap(){
-  $("#chaps").innerHTML=CHAPS.map(([c,col])=>`<div class="chap" style="--c:${col}"><h4><i></i>${c}</h4>${ST.map((s,k)=>s.dataset.chap===c?`<button class="mst${seen.has(k)?" seen":""}${k===cur?" cur":""}" data-k="${k}"><span>${ar(k+1)}</span>${esc(s.dataset.title)}</button>`:"").join("")}</div>`).join("");
-}
-function openMap(){buildMap();$("#map").hidden=false}
-$("#where").onclick=openMap;$("#mapClose").onclick=()=>$("#map").hidden=true;
-$("#chaps").onclick=e=>{const b=e.target.closest("[data-k]");if(b){$("#map").hidden=true;go(+b.dataset.k)}};
-
-document.addEventListener("click",e=>{
-  const r=e.target.closest("[data-reveal]");if(r){const el=document.getElementById(r.dataset.reveal);if(el){el.classList.toggle("open");sfx.tap()}}
-  const g=e.target.closest("[data-go]");if(g)go(+g.dataset.go);
-  const t=e.target.closest("[data-timer]");if(t)startTimer(+t.dataset.timer);
-});
-document.addEventListener("keydown",e=>{
-  if(e.target.matches("input,textarea,select")||e.ctrlKey||e.metaKey||e.altKey)return;
-  const k=e.key.toLowerCase();
-  if(e.key==="ArrowLeft"||e.key==="PageDown")go(cur+1);
-  else if(e.key==="ArrowRight"||e.key==="PageUp")go(cur-1);
-  else if(e.key==="Escape"){$("#map").hidden=true;closeDrawer();$("#picker").hidden=true}
-  else if(k==="m"||k==="ة")$("#map").hidden?openMap():$("#map").hidden=true;
-  else if(k==="t"||k==="ف")startTimer(60);
-  else if(k==="r"||k==="ق")pick();
-  else if(k==="f"||k==="ب")full();
-});
-(()=>{let x0,y0,t0,ok;const stg=$("#stage");
-  stg.addEventListener("touchstart",e=>{const t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now();ok=!e.target.closest(".nosw,input,textarea,button.trait,.film")},{passive:true});
-  stg.addEventListener("touchend",e=>{if(!ok)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;if(Math.abs(dx)>70&&Math.abs(dy)<60&&Date.now()-t0<650)go(cur+(dx>0?1:-1))},{passive:true});
-})();
-
-/* ---------- header tools ---------- */
-function setTheme(t){document.documentElement.dataset.theme=t;$("#btnTheme use").setAttribute("href",t==="night"?"#i-sun":"#i-moon");store.set("theme",t)}
-setTheme(store.get("theme","day"));
-$("#btnTheme").onclick=()=>setTheme(document.documentElement.dataset.theme==="night"?"day":"night");
-const FS=[1,1.1,1.2,.92];let fsI=store.get("fs",0);
-function setFs(){document.documentElement.style.setProperty("--fs",FS[fsI]);store.set("fs",fsI)}setFs();
-$("#btnFont").onclick=()=>{fsI=(fsI+1)%FS.length;setFs();toast("حجم الخط: "+ar(Math.round(FS[fsI]*100))+"٪")};
-function full(){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(e){}}
-$("#btnFull").onclick=full;
-
-/* ---------- teams ---------- */
-const TCOL=["#11806F","#D98A1C","#C93A60","#5A45B5","#2B7FB8","#6F6B80"];
-const TDEF=["الصابرات","الذاكرات","الواصلات","المنفقات","الموفيات","المحسنات"];
-let teams=store.get("teams",null)||TDEF.slice(0,4).map(n=>({n,p:0}));
-function renderTeams(bump){
-  $("#teams").innerHTML=teams.map((t,i)=>`<div class="team"><span class="sw" style="background:${TCOL[i]}"></span><input value="${esc(t.n)}" data-i="${i}" maxlength="20" aria-label="اسم المجموعة"><button data-t="${i}" data-d="-1" aria-label="إنقاص">−</button><span class="pts">${ar(t.p)}</span><button data-t="${i}" data-d="1" aria-label="زيادة">+</button></div>`).join("");
-  $("#score").innerHTML=teams.map((t,i)=>`<i style="background:${TCOL[i]}" title="${esc(t.n)}" class="${i===bump?"bump":""}">${ar(t.p)}</i>`).join("");
-  store.set("teams",teams);
-}
-renderTeams();
-$("#teams").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(!b)return;const i=+b.dataset.t;teams[i].p=Math.max(0,teams[i].p+ +b.dataset.d);renderTeams(i);if(+b.dataset.d>0)sfx.ok()});
-$("#teams").addEventListener("change",e=>{const i=e.target.dataset.i;if(i!=null){teams[i].n=e.target.value.trim()||TDEF[i];renderTeams()}});
-$("#teamAdd").onclick=()=>{if(teams.length<6){teams.push({n:TDEF[teams.length],p:0});renderTeams()}};
-$("#teamDel").onclick=()=>{if(teams.length>2){teams.pop();renderTeams()}};
-$("#teamsReset").onclick=()=>{teams.forEach(t=>t.p=0);renderTeams()};
-$("#score").onclick=()=>openDrawer("teams");
-
-/* ---------- drawer ---------- */
-function openDrawer(tab){$("#drawer").classList.add("on");$("#scrim").classList.add("on");if(tab)selTab(tab)}
-function closeDrawer(){$("#drawer").classList.remove("on");$("#scrim").classList.remove("on")}
-function selTab(n){$$(".tabs [data-tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===n));$$(".pane").forEach(p=>p.hidden=p.dataset.pane!==n)}
-$("#btnTeacher").onclick=()=>openDrawer();$("#drClose").onclick=closeDrawer;$("#scrim").onclick=closeDrawer;
-$$(".tabs [data-tab]").forEach(b=>b.onclick=()=>selTab(b.dataset.tab));
-
-/* ---------- timer ---------- */
-const TP=[[30,"٣٠ ث"],[60,"١ د"],[120,"٢ د"],[180,"٣ د"],[300,"٥ د"],[600,"١٠ د"]];
-$("#tpresets").innerHTML=TP.map(([s,l])=>`<button class="btn ghost sm" data-timer="${s}">${l}</button>`).join("");
-let tTot=60,tLeft=60,tRun=false,tInt;
-function tDraw(){const m=Math.floor(tLeft/60),s=tLeft%60;$("#tTxt").textContent=ar(m)+":"+ar(String(s).padStart(2,"0"));$("#tRing").style.strokeDashoffset=276.5*(1-tLeft/tTot)}
-function startTimer(s){tTot=tLeft=s||60;const T=$("#timer");T.hidden=false;T.classList.remove("end");tRun=true;$("#tPause use").setAttribute("href","#i-pause");tDraw();clearInterval(tInt);
-  tInt=setInterval(()=>{if(!tRun)return;tLeft--;tDraw();if(tLeft<=0){clearInterval(tInt);tRun=false;T.classList.add("end");sfx.win()}},1000)}
-$("#tPause").onclick=e=>{e.stopPropagation();if(tLeft<=0)return;tRun=!tRun;$("#tPause use").setAttribute("href",tRun?"#i-pause":"#i-play")};
-$("#tReset").onclick=e=>{e.stopPropagation();startTimer(tTot)};
-$("#tClose").onclick=e=>{e.stopPropagation();clearInterval(tInt);tRun=false;$("#timer").hidden=true;$("#timer").classList.remove("big")};
-$("#timer").onclick=()=>$("#timer").classList.toggle("big");
-$("#btnTimer").onclick=()=>$("#timer").hidden?startTimer(60):openDrawer("timer");
-
-/* ---------- random picker ---------- */
-const DEFN=Array.from({length:14},(_,i)=>"الطالبة "+ar(i+1));
-let names=store.get("names",DEFN),used=[];
-$("#names").value=names.join("\n");
-$("#saveNames").onclick=()=>{names=$("#names").value.split("\n").map(s=>s.trim()).filter(Boolean);if(!names.length)names=DEFN;store.set("names",names);used=[];toast("حُفظت الأسماء: "+ar(names.length))};
-function pick(){
-  let pool=$("#noRepeat").checked?names.filter(n=>!used.includes(n)):names;
-  if(!pool.length){used=[];pool=names}
-  const P=$("#picker"),N=$("#pkName");P.hidden=false;let k=0,d=50;
-  const spin=()=>{N.textContent=names[Math.random()*names.length|0];sfx.tap();k++;if(k<16){d*=1.13;setTimeout(spin,d)}else{const w=pool[Math.random()*pool.length|0];used.push(w);N.textContent=w;sfx.win()}};spin();
-}
-$("#btnPick").onclick=pick;$("#pickNow").onclick=()=>{closeDrawer();pick()};$("#pkAgain").onclick=pick;$("#pkClose").onclick=()=>$("#picker").hidden=true;
-
+/* درس الرعد ١٩–٢٩: تفاعلات المحطات (الهيكل المشترك في shared/core.js) */
 /* ========== 1 pledge ========== */
 $$("#vows .vow").forEach(b=>b.onclick=()=>{if(b.classList.contains("lit"))return;b.classList.add("lit");const n=$$("#vows .lit").length;
   if(n===4){$("#sky").classList.add("dawn");$("#pledgeMsg").textContent="اكتمل ميثاق الصف… وطلع فجر الحصة";confetti();sfx.win()}else{$("#pledgeMsg").textContent="أضاءت "+ar(n)+" من ٤";sfx.ok()}});
@@ -179,34 +58,7 @@ const AYAT=[
  [29,"[s:الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ] [v:طُوبَىٰ] لَهُمْ [v:وَحُسْنُ [q:مَآبٍ]]","طوبى وحسن مآب","أولئك لهم حالٌ طيبة، ومرجعٌ حسن إلى رضوان الله وجنته."]
 ];
 const AW={22:[["يدرؤون","يدفعون"]],23:[["جنات عدن","جنات إقامة دائمة"]],26:[["يَقْدِر","يضيّق"]],29:[["طوبى","حال طيبة وعيش طيب"],["حسن مآب","العاقبة الحسنة وهي الجنة"]]};
-function mark(t){let p;do{p=t;t=t.replace(/\[([a-z,]+):([^\[\]]+)\]/g,(m,c,w)=>`<span class="m ${c.replace(/,/g," ")}">${w}</span>`)}while(t!==p);return t}
-$("#ayat").innerHTML=AYAT.map(([n,t],i)=>`<span class="aya" data-i="${i}">${mark(t)}</span><span class="ano" data-i="${i}">${ar(n)}</span> `).join("");
-let ayI=0;
-function showAya(i){ayI=(i+AYAT.length)%AYAT.length;const[n,,th,tx]=AYAT[ayI];$$("#ayat .aya").forEach((a,k)=>a.classList.toggle("cur",k===ayI));
-  $("#tfRef").textContent=ar(n);$("#tfTheme").textContent=th;$("#tfTxt").textContent=tx;$("#tfWords").innerHTML=(AW[n]||[]).map(([w,m])=>`<span><b>${w}:</b> ${m}</span>`).join("")}
-showAya(0);
-$("#ayat").addEventListener("click",e=>{const a=e.target.closest("[data-i]");if(a){showAya(+a.dataset.i);sfx.tap()}});
-$("#tfPrev").onclick=()=>showAya(ayI-1);$("#tfNext").onclick=()=>showAya(ayI+1);
-$$(".lens").forEach(b=>b.onclick=()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);$("#ayat").classList.toggle("lens-"+b.dataset.lens,on);sfx.tap()});
-const aud=$("#aud"),SP=[1,.75,1.25];let spI=0;
-const fmt=s=>{s=isFinite(s)?Math.max(0,Math.floor(s)):0;return ar(Math.floor(s/60))+":"+ar(String(s%60).padStart(2,"0"))};
-$("#pp").onclick=()=>{aud.paused?aud.play().catch(()=>toast("تعذّر تشغيل الصوت")):aud.pause()};
-aud.addEventListener("play",()=>$("#pp use").setAttribute("href","#i-pause"));
-aud.addEventListener("pause",()=>$("#pp use").setAttribute("href","#i-play"));
-aud.addEventListener("timeupdate",()=>{$("#seek i").style.width=(aud.currentTime/(aud.duration||1)*100)+"%";$("#ptime").textContent=fmt(aud.currentTime)+" / "+fmt(aud.duration)});
-aud.addEventListener("loadedmetadata",()=>$("#ptime").textContent=fmt(0)+" / "+fmt(aud.duration));
-$("#seek").onclick=e=>{const r=e.currentTarget.getBoundingClientRect();if(aud.duration)aud.currentTime=(e.clientX-r.left)/r.width*aud.duration};
-$("#pspd").onclick=()=>{spI=(spI+1)%SP.length;aud.playbackRate=SP[spI];$("#pspd").textContent=ar(SP[spI])+"×"};
-LEAVE[5]=()=>aud.pause();
-
-/* ========== 6 KWL ========== */
-const KCOLS=[["ماذا أعرف؟","#D98A1C","#FFE7A8"],["ماذا أريد أن أعرف؟","#5A45B5","#E4DDFB"],["ماذا تعلمت؟","#11806F","#CDEFE6"]];
-let kwl=store.get("kwl",[[],[],[]]);
-function renderKwl(){$("#kwl").innerHTML=KCOLS.map(([t,c,bg],i)=>`<div class="kcol"><h4><i style="background:${c}"></i>${t}</h4>${kwl[i].map((s,j)=>`<div class="knote" style="background:${bg}"><span>${esc(s)}</span><button data-c="${i}" data-j="${j}" aria-label="حذف">×</button></div>`).join("")}</div>`).join("")}
-function addKwl(){const v=$("#kwlIn").value.trim();if(!v)return;kwl[+$("#kwlCol").value].push(v);store.set("kwl",kwl);$("#kwlIn").value="";renderKwl();sfx.ok()}
-$("#kwlAdd").onclick=addKwl;$("#kwlIn").onkeydown=e=>{if(e.key==="Enter")addKwl()};
-$("#kwl").onclick=e=>{const b=e.target.closest("button[data-c]");if(!b)return;kwl[+b.dataset.c].splice(+b.dataset.j,1);store.set("kwl",kwl);renderKwl()};
-renderKwl();
+versesInit(AYAT,AW);
 
 /* ========== 7 vocab ========== */
 const VOC=[
@@ -356,7 +208,6 @@ function pRender(){$$("#athar .ath").forEach((b,i)=>b.classList.toggle("on",i===
 $("#athar").onclick=e=>{const b=e.target.closest(".ath");if(!b)return;athI=+b.dataset.i;pRender();sfx.ok()};
 $("#pName").oninput=pRender;$("#pStep").oninput=pRender;pRender();
 $("#pPrint").onclick=()=>{if(athI<0){toast("اختاري أثرًا أولًا");return}window.print()};
-const LOGO_SRC="__LOGO__";
 function wrapText(ctx,text,x,y,maxW,lh){const words=text.split(" ");let line="",lines=[];for(const w of words){const t=line?line+" "+w:w;if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w}else line=t}if(line)lines.push(line);lines.forEach((l,i)=>ctx.fillText(l,x,y+i*lh));return y+lines.length*lh}
 $("#pSave").onclick=async()=>{
   if(athI<0){toast("اختاري أثرًا أولًا");return}
@@ -387,17 +238,7 @@ const QZ=[
   ["من صفات الأشقياء التي ذكرتها الآيات:",["يدفعون بالحسنة السيئة","يقطعون ما أمر الله به أن يوصل","ينفقون سرًّا وعلانية"],1],
   ["العمى الحقيقي الذي تشير إليه الآية التاسعة عشرة هو:",["عمى البصر","عمى البصيرة","ضعف النظر"],1]
 ];
-let qI=0,qRes=[];
-function qRender(){const Q=$("#quiz");
-  if(qI>=QZ.length){const s=qRes.filter(Boolean).length;Q.innerHTML=`<div style="text-align:center"><p class="qn">النتيجة</p><p style="font-family:Display;font-size:3rem;color:var(--plum);margin:0">${ar(s)} / ${ar(QZ.length)}</p><p style="font-weight:700">${s===QZ.length?"ممتاز! أنتِ على طريق السعداء":s>=5?"أحسنتِ! راجعي ما فاتك":"راجعي الآيات ومعناها الإجمالي، ثم أعيدي المحاولة"}</p><button class="btn" id="qAgain"><svg><use href="#i-replay"/></svg> إعادة التقويم</button></div>`;
-    $("#qAgain").onclick=()=>{qI=0;qRes=[];qRender()};if(s===QZ.length){confetti();sfx.win()}return}
-  const[t,o,a]=QZ[qI];
-  Q.innerHTML=`<div class="qdots">${QZ.map((_,k)=>`<i class="${k<qI?(qRes[k]?"ok":"no"):k===qI?"cur":""}"></i>`).join("")}</div><div class="qn">السؤال ${ar(qI+1)} من ${ar(QZ.length)}</div><div class="qq">${t}</div><div class="qo">${o.map((x,k)=>`<button data-k="${k}"><i>${"أبج"[k]}</i><span class="${x.startsWith("﴿")?"q":""}" style="${x.startsWith("﴿")?"font-size:1.15rem;line-height:2":""}">${x}</span></button>`).join("")}</div><div class="row mt" id="qNextRow" hidden><button class="btn" id="qNext">التالي <svg><use href="#i-next"/></svg></button></div>`;
-  $(".qo",Q).onclick=e=>{const b=e.target.closest("button");if(!b||Q.dataset.lock==="1")return;Q.dataset.lock="1";const k=+b.dataset.k,ok=k===a;qRes[qI]=ok;
-    $$(".qo button",Q)[a].classList.add("ok");if(!ok)b.classList.add("no");ok?sfx.ok():sfx.no();$("#qNextRow").hidden=false};
-  Q.dataset.lock="0";$("#qNext").onclick=()=>{qI++;qRender()};
-}
-qRender();
+quizInit(QZ,{full:"ممتاز! أنتِ على طريق السعداء",good:"أحسنتِ! راجعي ما فاتك",low:"راجعي الآيات ومعناها الإجمالي، ثم أعيدي المحاولة"});
 
 /* ========== 23 stars ========== */
 const podN=store.get("podN",["","",""]);
@@ -410,7 +251,4 @@ $$("#flist input").forEach((inp,i)=>{inp.value=fl[i]||"";inp.oninput=()=>{fl[i]=
 const nt=store.get("notes",["","",""]);
 $$("#notes textarea").forEach((t,i)=>{t.value=nt[i]||"";t.oninput=()=>{nt[i]=t.value;store.set("notes",nt)}});
 
-/* ---------- start ---------- */
-const hs=/^#s(\d+)$/.exec(location.hash);
-go(hs?+hs[1]:store.get("cur",0));
-if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
+boot();

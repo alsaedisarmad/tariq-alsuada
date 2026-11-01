@@ -1,0 +1,112 @@
+/* درس إبراهيم ٢٤–٣١: مكوّنات خاصة بالدرس */
+.vows.six{grid-template-columns:repeat(3,1fr)}
+.vows.six .vow{padding:16px 12px}
+
+/* hidden answers revealed by touch */
+.hid{border:1.5px dashed var(--line);background:var(--card2);border-radius:12px;padding:6px 10px;font-weight:600;text-align:start;width:100%;line-height:1.8;color:var(--ink);transition:filter .35s,background .3s,border-color .3s;filter:blur(5px)}
+.hid.on{filter:none;border-style:solid;border-color:var(--sea);background:var(--seasoft)}
+.hid:not(.on){cursor:pointer;user-select:none}
+
+/* clues */
+.clues{display:grid;gap:10px}
+.clue{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line);background:var(--card);border-radius:18px;padding:12px 14px;text-align:start;box-shadow:var(--sh);font-weight:700}
+.clue .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--plum);color:var(--onplum);flex:none;font-family:"Display"}
+.clue .t{filter:blur(6px);transition:filter .4s}
+.clue.on{border-color:var(--sun)}
+.clue.on .t{filter:none}
+.clue:not(.on) .t{user-select:none}
+.sura-name{margin-top:14px;text-align:center;font-family:"Display";font-weight:700;font-size:clamp(2rem,6vw,3rem);color:var(--sea);border:2px solid var(--sea);border-radius:22px;background:var(--seasoft);padding:6px}
+.idcard{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;margin:12px 0 0;align-items:center}
+.idcard dt{font-weight:700;color:var(--plum);font-size:.92rem}
+.idcard dd{margin:0}
+.stories{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.stories span{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:6px 12px;font-weight:600;font-size:.92rem;line-height:1.6}
+.stories small{display:block;color:var(--sun);font-weight:700;font-size:.75rem}
+
+/* key → lock activities (topics, parables) */
+.key{text-align:start;line-height:1.6}
+.lock .slot{font-size:.86rem;line-height:1.6}
+
+/* two trees */
+.tree-card{display:grid;gap:12px;align-content:start}
+.tcmp{width:100%;border-collapse:separate;border-spacing:6px;font-size:.92rem}
+.tcmp th{font-family:"Display";font-size:1rem;color:var(--plum);text-align:center;padding:4px}
+.tcmp tr th:first-child{color:var(--ink2);font-family:"Body";font-size:.85rem;width:22%}
+.tree-card.good tr:first-child th:nth-child(2),.tree-card.good tr:first-child th:nth-child(3){color:var(--sea)}
+.tree-card.bad tr:first-child th:nth-child(2),.tree-card.bad tr:first-child th:nth-child(3){color:var(--rose)}
+.tcmp td{vertical-align:top}
+.tcmp .hid{min-height:64px;font-size:.9rem}
+.tree-card.bad .hid.on{border-color:var(--rose);background:var(--rosesoft)}
+
+/* tawhid */
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pillars>div{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:10px 12px;display:grid;gap:6px}
+.pillars small{color:var(--ink2);font-size:.78rem}
+.pillars b{color:var(--plum);font-family:"Display";font-size:1.1rem}
+.fruits .fruit{width:100%;text-align:start}
+.conds{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.conds .col{display:grid;gap:6px;align-content:start}
+.conds .chip{border-radius:14px;padding:6px 12px;text-align:start;font-size:.9rem}
+.conds .chip.done{opacity:.55}
+
+/* iman tree */
+.itree{position:relative;max-width:440px;width:100%;margin:0 auto;aspect-ratio:400/420}
+.itree svg{position:absolute;inset:0;width:100%;height:100%}
+.itree .slot{position:absolute;transform:translate(-50%,-50%);max-width:58%;border:2px dashed #fff;background:#33246Ecc;color:#fff;border-radius:14px;padding:6px 12px;font-weight:700;font-size:.88rem;line-height:1.6;box-shadow:var(--sh);transition:all .3s}
+.itree .slot.hot{border-color:var(--sun2)}
+.itree .slot.ok{border-style:solid;border-color:var(--sun2);background:var(--sun);color:#fff}
+#tlabels{gap:8px}
+#tlabels .chip{border-radius:14px;padding:8px 14px}
+#tlabels .chip.used{opacity:.3;pointer-events:none}
+
+/* sort into this life / hereafter */
+.road.a{background:linear-gradient(to bottom,color-mix(in srgb,var(--seasoft) 80%,var(--card)),var(--card))}
+.road.a header b{color:var(--sea)}
+.roads.two .road{min-height:200px}
+.trait.ok-d{background:var(--sunsoft);border-color:var(--sun)}
+.trait.ok-a{background:var(--seasoft);border-color:var(--sea)}
+
+/* question cards */
+.qcards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.qc,.jrow{border:1.5px solid var(--line);background:var(--card);border-radius:20px;padding:14px 16px;text-align:start;display:grid;gap:8px;box-shadow:var(--sh);transition:border-color .3s,background .3s}
+.qc b,.jrow b{font-size:1rem;line-height:1.8}
+.qc span,.jrow span{display:block;color:var(--sea);font-weight:600;line-height:1.8;filter:blur(6px);transition:filter .4s;user-select:none}
+.qc.on,.jrow.on{border-color:var(--sea);background:color-mix(in srgb,var(--seasoft) 45%,var(--card))}
+.qc.on span,.jrow.on span{filter:none;user-select:auto}
+.just{display:grid;gap:10px}
+.jrow{grid-template-columns:1fr 1fr;align-items:center}
+#tamattu button{font-family:"Body";font-size:1rem;line-height:1.7}
+
+/* values */
+.athar.four{grid-template-columns:repeat(4,1fr)}
+.vision{margin-top:14px}
+
+/* game */
+.game{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gcard{border:0;padding:0;background:none;height:150px;perspective:800px}
+.gcard .in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d}
+.gcard.on .in{transform:rotateY(180deg)}
+.gcard .fc{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;display:grid;place-items:center;padding:12px;text-align:center}
+.gcard .front{background:linear-gradient(150deg,#33246E,#5A45B5);color:#fff;font-family:"Display";font-size:3rem;font-weight:700}
+.gcard .back{background:var(--sunsoft);border:1.5px solid var(--sun);color:var(--ink);font-weight:700;line-height:1.8;transform:rotateY(180deg)}
+.qwords{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.qwords .chip{font-size:1.1rem;min-width:80px}
+.qprompt{margin-top:14px;font-size:1.05rem;font-weight:700;min-height:2em;text-align:center}
+.qprompt.pop{animation:pop .45s cubic-bezier(.3,1.4,.5,1)}
+#qalbi{margin-top:8px}
+#qalbi .chip.sel{background:var(--plum);border-color:var(--plum);color:var(--onplum)}
+
+.ayat.lens-g .m.g{color:var(--plum2);text-decoration:underline wavy var(--plum2) 1.5px;text-underline-offset:.45em}
+
+@media (max-width:980px){
+  .qcards{grid-template-columns:1fr 1fr}
+  .athar.four{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  .vows.six{grid-template-columns:repeat(2,1fr)}
+  .qcards,.pillars,.conds,.game{grid-template-columns:1fr}
+  .game{grid-template-columns:1fr 1fr}
+  .jrow{grid-template-columns:1fr}
+  .tcmp{font-size:.85rem;border-spacing:4px}
+  .tcmp tr th:first-child{width:auto}
+}

@@ -1,5 +1,5 @@
-// يحفظ الدرس بعد أول فتح ليعمل بدون إنترنت؛ يجلب النسخة الأحدث من الشبكة إن توفرت.
-const CACHE = "raad14-v1";
+// يحفظ الدروس بعد أول فتح ليعمل بدون إنترنت؛ يجلب النسخة الأحدث من الشبكة إن توفرت.
+const CACHE = "lessons-v1";
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add("./")).then(() => self.skipWaiting()));
 });

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#33246E">
+<meta name="description" content="دروس تفاعلية لمادة القرآن الكريم وتفسيره. إعداد المعلمة فاطمة الطلحي.">
+<title>القرآن الكريم وتفسيره | الدروس</title>
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body class="hub">
+<div class="bg" aria-hidden="true"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 019.5 4.5a8 8 0 1010 10z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-4 4-6 7.5-6s6.3 2 7.5 6"/></symbol>
+  <symbol id="i-school" viewBox="0 0 24 24"><path d="M3 9.5L12 4l9 5.5-9 5.5z"/><path d="M7 12v5c3 2.5 7 2.5 10 0v-5"/></symbol>
+</svg>
+<header class="hd">
+  <span class="moe" role="img" aria-label="وزارة التعليم"></span>
+  <div class="ttl"><b>القرآن الكريم وتفسيره</b><span>١٤٤٨هـ</span></div>
+  <div class="tools" style="margin-inline-start:auto"><button class="ib" id="btnTheme" title="الوضع الليلي" aria-label="الوضع الليلي"><svg><use href="#i-moon"/></svg></button></div>
+</header>
+<main class="hub-main">
+  <section class="hub-hero">
+    <span class="tag ghost">١٤٤٨هـ</span>
+    <h1>القرآن الكريم وتفسيره</h1>
+    <div class="people">
+      <div class="person"><div class="av"><svg><use href="#i-user"/></svg></div><div><small>إعداد معلمة المادة</small><b>أ. فاطمة الطلحي</b></div></div>
+      <div class="person"><div class="av" style="background:var(--sunsoft)"><svg style="stroke:var(--sun)"><use href="#i-school"/></svg></div><div><small>مديرة المدرسة</small><b>أ. آمال باربود</b></div></div>
+    </div>
+  </section>
+  <section class="lessons">
+{{CARDS}}
+  </section>
+</main>
+<script>
+"use strict";
+(()=>{const r=document.documentElement,b=document.getElementById("btnTheme");
+  const set=t=>{r.dataset.theme=t;b.querySelector("use").setAttribute("href",t==="night"?"#i-sun":"#i-moon");try{localStorage.setItem("lessons:theme",JSON.stringify(t))}catch(e){}};
+  let t="day";try{t=JSON.parse(localStorage.getItem("lessons:theme"))||"day"}catch(e){}
+  set(t);b.onclick=()=>set(r.dataset.theme==="night"?"day":"night");
+  if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
+})();
+</script>
+</body>
+</html>
