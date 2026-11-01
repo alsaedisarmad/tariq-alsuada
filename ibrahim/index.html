@@ -1752,11 +1752,11 @@ async function drawCert(){
   wrapLines(x,"لاجتيازها تقويم درس «"+BD.lesson+"» بنسبة "+ar(certPct)+"٪",W-360).forEach((l,i)=>x.fillText(l,W/2,660+i*60));
   x.fillStyle="#5E5A75";x.font="400 32px Body";x.fillText($(".ttl span").textContent.split("|")[0].trim(),W/2,750);
   let dt="";try{dt=new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(new Date())}catch(e){}
-  x.fillStyle="#5E5A75";x.font="400 28px Body";if(dt)x.fillText(dt,W/2,1010);
+  x.fillStyle="#5E5A75";x.font="400 28px Body";if(dt)x.fillText(dt,W/2,975);
   /* RTL: المعلمة يسارًا مع التوقيع، والمديرة يمينًا */
-  x.font="400 30px Body";x.fillStyle="#5E5A75";x.fillText("معلمة المادة",390,880);x.fillText("مديرة المدرسة",W-390,880);
-  x.font="700 40px Body";x.fillStyle="#33246E";x.fillText(TEACHER,390,935);x.fillText(PRINCIPAL,W-390,935);
-  if(sign){const sw=220,sh=sw*sign.naturalHeight/sign.naturalWidth;x.drawImage(sign,390-sw/2,930,sw,sh)}
+  x.font="400 30px Body";x.fillStyle="#5E5A75";x.fillText("معلمة المادة",390,850);x.fillText("مديرة المدرسة",W-390,850);
+  x.font="700 40px Body";x.fillStyle="#33246E";x.fillText(TEACHER,390,1035);x.fillText(PRINCIPAL,W-390,1035);
+  if(sign){const sw=210,sh=sw*sign.naturalHeight/sign.naturalWidth;x.drawImage(sign,390-sw/2,868,sw,sh)}
   certURL=c.toDataURL("image/png");
   const pv=$("#certImg");if(pv){pv.src=certURL;pv.hidden=false}
   c.toBlob(b=>{if(job===certJob&&b)try{certFile=new File([b],"شهادة-"+(nm||"الطالبة")+".png",{type:"image/png"})}catch(e){certFile=null}},"image/png");
