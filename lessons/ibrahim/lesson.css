@@ -110,3 +110,4 @@
   .tcmp{font-size:.85rem;border-spacing:4px}
   .tcmp tr th:first-child{width:auto}
 }
+.lock .q small{white-space:nowrap}

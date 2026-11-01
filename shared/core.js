@@ -220,8 +220,12 @@ async function drawCert(){
   const pv=$("#certImg");if(pv){pv.src=certURL;pv.hidden=false}
   c.toBlob(b=>{if(job===certJob&&b)try{certFile=new File([b],"شهادة-"+(nm||"الطالبة")+".png",{type:"image/png"})}catch(e){certFile=null}},"image/png");
 }
-function queueCert(){clearTimeout(certT);certT=setTimeout(drawCert,250)}
+function queueCert(){if(!$("#certName"))return;clearTimeout(certT);certT=setTimeout(drawCert,250)}
 function certReady(){if(!$("#certName").value.trim()){toast("اكتبي اسمك أولًا");$("#certName").focus();return false}if(!certURL){toast("لحظة… يتم تجهيز الشهادة");drawCert();return false}return true}
+/* اسم الطالبة: تكتبه في الغلاف فيظهر في شهادتها، ويمكن تعديله في محطة الشهادة */
+const getName=()=>store.get("certName","");
+function setName(v,src){store.set("certName",v);$$("#stName,#certName").forEach(i=>{if(i!==src)i.value=v});queueCert()}
+if($("#stName")){$("#stName").value=getName();$("#stName").oninput=e=>setName(e.target.value,e.target)}
 /* محطة «الشهادة» تُضاف بعد التقويم عند البناء؛ تُفتح بنتيجة آخر محاولة في التقويم */
 const QUIZ_I=ST.findIndex(s=>s.querySelector("#quiz")),CERT_I=ST.findIndex(s=>s.querySelector("#certArea"));
 const AWARD=`<svg width="28" height="28" style="vertical-align:-6px;fill:none;stroke:currentColor;stroke-width:1.8"><use href="#i-award"/></svg>`;
@@ -231,10 +235,10 @@ function certRender(){
   certPct=pct;
   A.innerHTML=`<div class="cert-box"><h3>${AWARD} استحققتِ شهادة</h3>
     <p class="note">نتيجتك في التقويم ${ar(pct)}٪. اكتبي اسمك الثلاثي كما تريدين أن يظهر في الشهادة.</p>
-    <input class="field" id="certName" maxlength="40" placeholder="اسم الطالبة" value="${esc(store.get("certName",""))}">
+    <input class="field" id="certName" maxlength="40" placeholder="اسم الطالبة" value="${esc(getName())}">
     <img id="certImg" alt="الشهادة" hidden>
     <div class="row center mt"><button class="btn sun sm" id="certPrint"><svg><use href="#i-print"/></svg> طباعة الشهادة</button><button class="btn sm" id="certSave"><svg><use href="#i-save"/></svg> حفظ صورة / مشاركة</button></div></div>`;
-  $("#certName").oninput=e=>{store.set("certName",e.target.value);queueCert()};
+  $("#certName").oninput=e=>setName(e.target.value,e.target);
   $("#certPrint").onclick=()=>{if(certReady())printImage(certURL,"شهادة.png")};
   $("#certSave").onclick=()=>{if(certReady()){sfx.win();shareImage(certURL,certFile,"شهادة.png","شهادة تميّز")}};
   drawCert();
@@ -262,6 +266,7 @@ function quizInit(QZ,MSG){
 
 /* ---------- start (called at the end of each lesson script) ---------- */
 function boot(){
+  $$("#pName,#tkName").forEach(i=>{if(!i.value.trim()&&getName().trim()){i.value=getName();i.dispatchEvent(new Event("input"))}});
   const hs=/^#s(\d+)$/.exec(location.hash);
   go(hs?+hs[1]:store.get("cur",0));
   if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("../sw.js").catch(()=>{});

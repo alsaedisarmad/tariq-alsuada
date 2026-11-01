@@ -644,6 +644,8 @@ a.ib{color:inherit;text-decoration:none}
 .cert-box .field{max-width:380px;margin:8px auto;text-align:center}
 .cert-box img{width:100%;max-width:640px;border-radius:14px;margin:12px auto 4px;display:block;box-shadow:var(--sh)}
 .cert-box .note{margin:4px 0 0}
+.namebox{max-width:440px;margin:0 0 18px}
+.namebox label{display:block;font-weight:700;font-size:.95rem;color:var(--plum);margin-bottom:6px}
 .cert-box.locked{border-color:var(--line);background:var(--card)}
 .cert-box.locked h3{color:var(--ink2)}
 .imgsheet{position:fixed;inset:0;z-index:85;display:grid;place-items:center;padding:16px;background:#120e2acc;opacity:0;pointer-events:none;transition:opacity .3s}

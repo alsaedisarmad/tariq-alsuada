@@ -25,8 +25,8 @@
 
 /* quote */
 .dawn{position:relative;border-radius:30px;overflow:hidden;padding:clamp(28px,6vw,70px);background:linear-gradient(160deg,#241a55,#3b2a7d 50%,#b5577a 85%,#f0a64a);color:#fff;min-height:52vh;display:flex;flex-direction:column;justify-content:center}
-.dawn .sun{position:absolute;width:300px;height:300px;border-radius:50%;left:50%;bottom:-170px;transform:translateX(-50%);background:radial-gradient(circle,#FFE6A6 0%,#F5B54A 45%,transparent 70%);transition:bottom 2s cubic-bezier(.2,.8,.2,1)}
-.st.on .dawn .sun{bottom:-120px}
+.dawn .dsun{position:absolute;width:300px;height:300px;border-radius:50%;left:50%;bottom:-170px;transform:translateX(-50%);background:radial-gradient(circle,#FFE6A6 0%,#F5B54A 45%,transparent 70%);transition:bottom 2s cubic-bezier(.2,.8,.2,1)}
+.st.on .dawn .dsun{bottom:-120px}
 .dawn blockquote{margin:0;font-family:"Display";font-size:clamp(1.6rem,3.6vw,2.6rem);line-height:1.8;font-weight:600;position:relative;max-width:26ch}
 .dawn blockquote .w{display:inline-block;opacity:0;transform:translateY(14px);filter:blur(6px);transition:all .6s cubic-bezier(.2,.8,.2,1)}
 .dawn blockquote .w.in{opacity:1;transform:none;filter:none}
