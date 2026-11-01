@@ -167,7 +167,7 @@ async function drawValue(){
   x.font="700 86px Display";x.fillText($("#pName").value.trim()||"طالبة مجتهدة",W-90,y+150);
   x.font="600 46px Body";x.fillStyle="#F6C66B";x.fillText("قيمتي: "+a[0],W-90,y+260);
   x.fillStyle="#fff";x.font="400 42px Body";wrapLines(x,"مبادرتي: "+($("#pStep").value.trim()||a[1]),W-180).forEach((l,i)=>x.fillText(l,W-90,y+350+i*72));
-  x.font="400 30px Body";x.fillStyle="#ffffffcc";x.fillText("معلمة المادة: "+TEACHER,W-90,H-130);x.fillText("مديرة المدرسة: "+PRINCIPAL,W-90,H-84);
+  x.font="400 30px Body";x.fillStyle="#ffffffcc";x.fillText("أستاذة المادة: "+TEACHER,W-90,H-130);x.fillText("مديرة المدرسة: "+PRINCIPAL,W-90,H-84);
   if(logo)x.drawImage(tinted(logo,200,200*logo.naturalHeight/logo.naturalWidth,"#fff"),80,H-230);
   vURL=c.toDataURL("image/png");c.toBlob(b=>{if(job===vJob&&b)try{vFile=new File([b],"بطاقة-قيمتي.png",{type:"image/png"})}catch(e){vFile=null}},"image/png");
 }

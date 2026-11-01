@@ -14,7 +14,7 @@ ENTER[2]=playQuote;$("#quoteAgain").onclick=playQuote;
 
 /* ========== 3 envelopes ========== */
 const ENV=[
- ["ما الضوابط التي وضعها العلماء للمفسّر؟","إجابة شفهية تقوّمها المعلمة في ضوء الدرس السابق."],
+ ["ما الضوابط التي وضعها العلماء للمفسّر؟","إجابة شفهية تقوّمها الأستاذة في ضوء الدرس السابق."],
  ["مثّلي لتفسير القرآن بالقرآن، ولتفسير القرآن بالسنة.","مثال تذكره الطالبة من الدرس السابق، مع بيان موضع التفسير."],
  ["ما أهمية علم التفسير؟","به يُفهم مراد الله من كلامه، فيُعمل به ويُتدبَّر."],
  ["رتّبي طرق التفسير.","تفسير القرآن بالقرآن، ثم بالسنة، ثم بأقوال الصحابة، ثم بأقوال التابعين، ثم بمقتضى اللغة العربية."],
@@ -261,7 +261,7 @@ async function drawCard(){
   c.font="700 76px Display";c.fillText(tk.n||"اسم الطالبة",R,540);
   c.font="700 46px Body";const deed=tk.d>=0?"عهدي هذا الأسبوع: "+DEEDS[tk.d]:"اختاري عملك من القائمة";
   wrapLines(c,deed,W-200).slice(0,2).forEach((l,i)=>c.fillText(l,R,640+i*68));
-  c.globalAlpha=.9;c.font="400 32px Body";c.fillText("معلمة المادة: "+TEACHER,R,880);c.fillText("مديرة المدرسة: "+PRINCIPAL,R,930);c.globalAlpha=1;
+  c.globalAlpha=.9;c.font="400 32px Body";c.fillText("أستاذة المادة: "+TEACHER,R,880);c.fillText("مديرة المدرسة: "+PRINCIPAL,R,930);c.globalAlpha=1;
   if(logo)c.drawImage(tinted(logo,200,200*logo.naturalHeight/logo.naturalWidth,"#fff"),100,790);
   c.restore();
   cardURL=cv.toDataURL("image/png");

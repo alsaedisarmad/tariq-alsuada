@@ -221,7 +221,7 @@ $("#pSave").onclick=async()=>{
   x.font="700 86px Display";x.fillText($("#pName").value.trim()||"طالبة مجتهدة",W-90,(y+150));
   x.font="600 46px Body";x.fillStyle="#F6C66B";x.fillText("أثري هذا الأسبوع: "+a[0],W-90,(y+150)+110);
   x.fillStyle="#fff";x.font="400 42px Body";wrapText(x,"سأبدأ بـ"+($("#pStep").value.trim()||a[1])+"؛ لأن هذه الآية دلّتني على ذلك.",W-90,(y+150)+200,W-180,72);
-  x.font="400 30px Body";x.fillStyle="#ffffffcc";x.fillText("معلمة المادة: أ. فاطمة الطلحي",W-90,H-130);x.fillText("مديرة المدرسة: أ. آمال باربود",W-90,H-84);
+  x.font="400 30px Body";x.fillStyle="#ffffffcc";x.fillText("أستاذة المادة: فاطمة الطلحي",W-90,H-130);x.fillText("مديرة المدرسة: آمال باربود",W-90,H-84);
   await new Promise(res=>{const im=new Image();im.onload=()=>{const o=document.createElement("canvas");o.width=200;o.height=170;const ox=o.getContext("2d");ox.drawImage(im,0,0,200,170);ox.globalCompositeOperation="source-in";ox.fillStyle="#fff";ox.fillRect(0,0,200,170);x.drawImage(o,80,H-230);res()};im.onerror=res;im.src=LOGO_SRC});
   c.toBlob(async b=>{if(!b){toast("تعذّر إنشاء الصورة");return}const f=new File([b],"بطاقة-أثر.png",{type:"image/png"});
     try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"بطاقة أثر"});return}}catch(e){if(e&&e.name==="AbortError")return}

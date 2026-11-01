@@ -1,12 +1,12 @@
 "use strict";
-/* الهيكل المشترك لكل الدروس: التنقل، الأدوات، لوحة المعلمة، المصحف، جدول التعلم، التقويم والشهادة */
+/* الهيكل المشترك لكل الدروس: التنقل، الأدوات، لوحة الأستاذة، المصحف، جدول التعلم، التقويم والشهادة */
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const AR="٠١٢٣٤٥٦٧٨٩",ar=n=>String(n).replace(/\d/g,d=>AR[d]);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const BD=document.body.dataset,LKEY=BD.key;
 const store={get(k,d){try{const v=localStorage.getItem(LKEY+":"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(LKEY+":"+k,JSON.stringify(v))}catch(e){}}};
-const TEACHER="أ. فاطمة الطلحي",PRINCIPAL="أ. آمال باربود";
+const TEACHER="فاطمة الطلحي",PRINCIPAL="آمال باربود";
 const LOGO_SRC="__LOGO__",SIGN_SRC="__SIGN__";
 
 /* ---------- sound, toast, confetti ---------- */
@@ -212,8 +212,8 @@ async function drawCert(){
   x.fillStyle="#5E5A75";x.font="400 32px Body";x.fillText($(".ttl span").textContent.split("|")[0].trim(),W/2,750);
   let dt="";try{dt=new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(new Date())}catch(e){}
   x.fillStyle="#5E5A75";x.font="400 28px Body";if(dt)x.fillText(dt,W/2,975);
-  /* RTL: المعلمة يسارًا مع التوقيع، والمديرة يمينًا */
-  x.font="400 30px Body";x.fillStyle="#5E5A75";x.fillText("معلمة المادة",390,850);x.fillText("مديرة المدرسة",W-390,850);
+  /* RTL: الأستاذة يسارًا مع التوقيع، والمديرة يمينًا */
+  x.font="400 30px Body";x.fillStyle="#5E5A75";x.fillText("أستاذة المادة",390,850);x.fillText("مديرة المدرسة",W-390,850);
   x.font="700 40px Body";x.fillStyle="#33246E";x.fillText(TEACHER,390,1035);x.fillText(PRINCIPAL,W-390,1035);
   if(sign){const sw=210,sh=sw*sign.naturalHeight/sign.naturalWidth;x.drawImage(sign,390-sw/2,868,sw,sh)}
   certURL=c.toDataURL("image/png");
