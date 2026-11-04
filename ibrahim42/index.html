@@ -614,7 +614,9 @@ input[type=range]{width:100%;accent-color:var(--sea)}
   .ttl{padding-inline-start:8px}
   .ttl span{display:none}
   .hide-sm{display:none!important}
-  .ib{width:38px;height:38px;border-radius:12px}
+  .tools{gap:4px;margin-inline-start:auto}
+  .ib{width:36px;height:36px;border-radius:12px}
+  .ib svg{width:19px;height:19px}
   .score i{min-width:24px;height:24px;font-size:.75rem;border-radius:8px}
   .st{padding:18px 14px 116px}
   .card{padding:16px}
@@ -634,6 +636,7 @@ input[type=range]{width:100%;accent-color:var(--sea)}
   .nb{width:46px;height:46px}
   .score{display:none}
 }
+@media (max-width:380px){body:not(.hub) .hd .ttl{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ---------- shared additions ---------- */
@@ -858,7 +861,7 @@ a.ib{color:inherit;text-decoration:none}
   <div class="tools">
     <a class="ib" href="../" title="الدروس" aria-label="الدروس"><svg><use href="#i-home"/></svg></a>
     <button class="ib" id="btnTimer" title="المؤقت (T)" aria-label="المؤقت"><svg><use href="#i-timer"/></svg></button>
-    <button class="ib hide-sm" data-bell title="الجرس (B)" aria-label="الجرس"><svg><use href="#i-bell"/></svg></button>
+    <button class="ib" data-bell title="الجرس (B)" aria-label="الجرس"><svg><use href="#i-bell"/></svg></button>
     <button class="ib" id="btnPick" title="اختيار طالبة (R)" aria-label="اختيار طالبة عشوائيًا"><svg><use href="#i-dice"/></svg></button>
     <button class="ib hide-sm" id="btnFont" title="حجم الخط" aria-label="حجم الخط"><svg><use href="#i-text"/></svg></button>
     <button class="ib" id="btnTheme" title="الوضع الليلي" aria-label="الوضع الليلي"><svg><use href="#i-moon"/></svg></button>
