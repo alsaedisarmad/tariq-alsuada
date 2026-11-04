@@ -1,0 +1,122 @@
+/* درس إبراهيم ٤٢–٥٢: مكوّنات خاصة بالدرس */
+.vows.six{grid-template-columns:repeat(3,1fr)}
+.vows.six .vow{padding:16px 12px}
+
+/* cover: mountains turning to dust */
+.z2dust circle{animation:z2rise 4.5s ease-in infinite;opacity:0}
+@keyframes z2rise{0%{opacity:0;transform:translateY(0)}20%{opacity:.95}100%{opacity:0;transform:translateY(-60px)}}
+
+/* hook */
+.clues{display:grid;gap:10px}
+.clue{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line);background:var(--card);border-radius:18px;padding:12px 14px;text-align:start;box-shadow:var(--sh);font-weight:700}
+.clue .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--plum);color:var(--onplum);flex:none;font-family:"Display"}
+.clue .t{filter:blur(6px);transition:filter .4s}
+.clue.on{border-color:var(--sun)}
+.clue.on .t{filter:none}
+.clue:not(.on) .t{user-select:none}
+.hourglass{display:grid;justify-items:center;align-content:center;gap:2px;min-height:300px;text-align:center}
+.hourglass svg{width:120px;height:170px}
+.hourglass b{font-size:clamp(2.4rem,6vw,3.4rem);color:var(--plum);line-height:1.2;margin-top:8px}
+.hourglass span{font-weight:700;color:var(--ink2)}
+.hg-sand{animation:march 1.4s linear infinite}
+.hg-top{transform-origin:60px 74px;animation:hgTop 6s ease-in-out infinite}
+.hg-bot{transform-origin:60px 152px;animation:hgBot 6s ease-in-out infinite}
+@keyframes hgTop{0%{transform:scaleY(1)}90%,100%{transform:scaleY(.15)}}
+@keyframes hgBot{0%{transform:scaleY(.25)}90%,100%{transform:scaleY(1)}}
+
+/* verses: tajweed lens */
+.ayat.lens-r .m.r{color:var(--plum2);text-decoration:underline wavy var(--plum2) 1.5px;text-underline-offset:.45em}
+.listen{text-align:center}
+
+/* key → lock */
+.key{text-align:start;line-height:1.6}
+.lock .slot{font-size:.86rem;line-height:1.6}
+.lock .q small{white-space:nowrap}
+.keyrow.long .key{border-radius:18px;font-weight:600;font-size:.92rem;padding:8px 14px 8px 10px;max-width:100%}
+.keyrow.long .key svg{flex:none}
+.locks.wide .lock{grid-template-columns:1fr 1.25fr}
+
+/* question cards (touch to reveal) */
+.qcards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.qcards.two{grid-template-columns:1fr 1fr;margin-top:10px}
+.qc,.jrow,.seg{border:1.5px solid var(--line);background:var(--card);border-radius:20px;padding:14px 16px;text-align:start;display:grid;gap:8px;box-shadow:var(--sh);transition:border-color .3s,background .3s;align-content:start}
+.qc>b,.jrow>b{font-size:1rem;line-height:1.8}
+.qc>span,.jrow>span,.seg>span{display:block;color:var(--sea);font-weight:600;line-height:1.9;filter:blur(6px);transition:filter .4s;user-select:none}
+.qc>span .q{font-size:1.2rem;color:var(--sea)}
+.qc.on,.jrow.on{border-color:var(--sea);background:color-mix(in srgb,var(--seasoft) 45%,var(--card))}
+.qc.on>span,.jrow.on>span,.seg.on>span{filter:none;user-select:auto}
+.qcards.ease .qc>b{color:var(--plum)}
+.just{display:grid;gap:10px;margin-top:6px}
+.olist{margin:6px 0 0;padding-inline-start:22px}
+.olist li{margin-bottom:4px}
+.olist.rules li{font-weight:600}
+
+/* yes / no */
+.opts-q.yn{grid-template-columns:1fr 1fr;margin-top:6px}
+.opts-q.yn button{font-family:"Body";font-weight:700;font-size:1.05rem}
+
+/* sort: three kinds of zulm */
+.roads.three{grid-template-columns:repeat(3,1fr)}
+.roads.three .road{min-height:210px}
+.roads.three .road header b{font-size:1.08rem;line-height:1.6}
+.road.h header b{color:var(--rose)}
+.road.g{background:linear-gradient(to bottom,color-mix(in srgb,var(--seasoft) 80%,var(--card)),var(--card))}
+.road.g header b{color:var(--sea)}
+.trait.ok-a{background:var(--rosesoft);border-color:var(--rose)}
+.trait.ok-n{background:var(--sunsoft);border-color:var(--sun)}
+.trait.ok-g{background:var(--seasoft);border-color:var(--sea)}
+
+/* verse segments */
+.segs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.segs.three{grid-template-columns:repeat(3,1fr)}
+.seg{border-top:6px solid var(--c);text-align:center}
+.seg>b{font-size:1.45rem;color:var(--c);line-height:2}
+.seg>span{color:var(--ink)}
+.seg.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 10%,var(--card))}
+
+/* mountains flatten (48) */
+.flatten{display:block;width:100%;border:0;padding:0;background:none;margin:6px 0 12px;border-radius:16px;overflow:hidden}
+.flatten svg{display:block;width:100%;height:auto}
+.flatten .mts{transform-origin:50% 96px;transform-box:view-box;transition:transform 1.8s cubic-bezier(.5,0,.2,1),opacity 1.8s}
+.flatten.flat .mts{transform:scaleY(.04);opacity:.4}
+.ev p{margin:0 0 8px;font-weight:600;line-height:2}
+.ev .q{font-weight:400;font-size:1.2rem}
+.pair{display:grid;gap:8px}
+
+/* punishment flip cards */
+.flip4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flip4 .fl{height:160px}
+.flip4 .front{background:linear-gradient(150deg,#33246E,#5A45B5)}
+.flip4 .front .q{font-size:1.45rem;line-height:1.9;color:#fff}
+.flip4 .back{font-size:1rem;line-height:1.8;background:var(--rosesoft);border-color:var(--rose)}
+
+/* gap fill */
+.gtxt{line-height:2.5;font-weight:600;margin:6px 0 12px}
+.gap{border:2px dashed var(--plum2);background:var(--card);border-radius:12px;padding:0 14px;min-width:70px;font-weight:700;color:var(--plum2);line-height:1.9;vertical-align:middle;transition:all .3s}
+.gap.ok{border-style:solid;border-color:var(--sea);background:var(--seasoft);color:var(--sea);cursor:default}
+.gap .q{font-size:1.15rem}
+#gpool{gap:8px}
+.gchip{border-radius:14px;line-height:1.9}
+.gchip .q{font-size:1.1rem}
+.gchip.used{opacity:.3;pointer-events:none}
+
+/* tajweed */
+.hw small.rc{display:block;font-family:"Body";font-size:.66rem;line-height:1.4;margin-bottom:2px}
+
+/* exit ticket */
+.xlist{display:grid;gap:8px}
+.xlist label{display:flex;gap:10px;align-items:center}
+.xlist label span{width:30px;height:30px;border-radius:10px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+
+@media (max-width:980px){
+  .qcards,.segs{grid-template-columns:1fr 1fr}
+  .flip4{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .vows.six{grid-template-columns:repeat(2,1fr)}
+  .qcards,.qcards.two,.roads.three,.segs.three{grid-template-columns:1fr}
+  .locks.wide .lock{grid-template-columns:1fr}
+  .hourglass{min-height:0}
+  .flip4 .fl{height:150px}
+  .flip4 .front .q{font-size:1.2rem}
+}

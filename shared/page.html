@@ -21,6 +21,7 @@
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></symbol>
   <symbol id="i-map" viewBox="0 0 24 24"><path d="M4 6.5l5-2 6 2 5-2v13l-5 2-6-2-5 2z"/><path d="M9 4.5v13M15 6.5v13"/></symbol>
   <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 3h5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/><path d="M12 3v2"/></symbol>
   <symbol id="i-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r=".6"/><circle cx="15" cy="15" r=".6"/><circle cx="15" cy="9" r=".6"/><circle cx="9" cy="15" r=".6"/><circle cx="12" cy="12" r=".6"/></symbol>
   <symbol id="i-teacher" viewBox="0 0 24 24"><path d="M4 5h16v10H4z"/><path d="M8 19h8M12 15v4M7.5 9.5h5M7.5 12h3"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></symbol>
@@ -50,6 +51,7 @@
   <div class="tools">
     <a class="ib" href="../" title="الدروس" aria-label="الدروس"><svg><use href="#i-home"/></svg></a>
     <button class="ib" id="btnTimer" title="المؤقت (T)" aria-label="المؤقت"><svg><use href="#i-timer"/></svg></button>
+    <button class="ib hide-sm" data-bell title="الجرس (B)" aria-label="الجرس"><svg><use href="#i-bell"/></svg></button>
     <button class="ib" id="btnPick" title="اختيار طالبة (R)" aria-label="اختيار طالبة عشوائيًا"><svg><use href="#i-dice"/></svg></button>
     <button class="ib hide-sm" id="btnFont" title="حجم الخط" aria-label="حجم الخط"><svg><use href="#i-text"/></svg></button>
     <button class="ib" id="btnTheme" title="الوضع الليلي" aria-label="الوضع الليلي"><svg><use href="#i-moon"/></svg></button>
@@ -83,6 +85,7 @@
     <button role="tab" aria-selected="true" data-tab="teams">المجموعات</button>
     <button role="tab" aria-selected="false" data-tab="timer">المؤقت</button>
     <button role="tab" aria-selected="false" data-tab="names">الطالبات</button>
+    <button role="tab" aria-selected="false" data-tab="certs">الشهادات</button>
     <button role="tab" aria-selected="false" data-tab="plan">خطة الحصة</button>
   </div>
   <div class="pane" data-pane="teams">
@@ -92,11 +95,25 @@
   </div>
   <div class="pane" data-pane="timer" hidden><p style="font-weight:700;margin-top:0">مؤقت التفكير والعمل الجماعي</p><div class="tpresets" id="tpresets"></div><p class="note">المسي المؤقت العائم لتكبيره على الشاشة.</p></div>
   <div class="pane" data-pane="names" hidden><p style="font-weight:700;margin-top:0">أسماء الطالبات (اسم في كل سطر)</p><textarea class="names" id="names"></textarea><label class="check"><input type="checkbox" id="noRepeat" checked> عدم تكرار الاسم المختار</label><div class="row"><button class="btn sm" id="saveNames">حفظ</button><button class="btn sm sun" id="pickNow"><svg><use href="#i-dice"/></svg> اختيار الآن</button></div></div>
+  <div class="pane" data-pane="certs" hidden>
+    <label class="tc-lbl" for="tcName">اسم الطالبة</label>
+    <input class="field" id="tcName" list="tcList" maxlength="40" placeholder="اسم الطالبة" autocomplete="off"><datalist id="tcList"></datalist>
+    <label class="tc-lbl" for="tcPct">النسبة في التقويم (اختياري)</label>
+    <input class="field" id="tcPct" inputmode="numeric" maxlength="3" placeholder="٪">
+    <img class="tc-img" id="tcImg" alt="الشهادة" hidden>
+    <div class="row mt"><button class="btn sun sm" id="tcPrint"><svg><use href="#i-print"/></svg> طباعة</button><button class="btn sm" id="tcSave"><svg><use href="#i-save"/></svg> حفظ صورة / مشاركة</button></div>
+    <div class="tc-all"><button class="btn ghost sm" id="tcAll"><svg><use href="#i-award"/></svg> شهادات جميع الطالبات</button><p class="note">الأسماء من تبويب «الطالبات».</p></div>
+  </div>
   <div class="pane" data-pane="plan" hidden>
 {{PLAN}}
-    <p class="note">اختصارات: الأسهم للتنقل | M الخريطة | T المؤقت | R اختيار طالبة | F ملء الشاشة.</p>
+    <p class="note">اختصارات: الأسهم للتنقل | M الخريطة | T المؤقت | R اختيار طالبة | B الجرس | F ملء الشاشة.</p>
+  </div>
+  <div class="dfoot">
+    <button class="btn sun sm" data-bell><svg><use href="#i-bell"/></svg> الجرس</button>
+    <a class="btn ghost sm" id="dlLesson" href="index.html" download="{{FILE}}"><svg><use href="#i-save"/></svg> تنزيل الدرس HTML</a>
   </div>
 </aside>
+<div class="bellfx" id="bellFx" hidden aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-bell"/></svg></div>
 
 <div class="timer" id="timer" hidden>
   <svg class="ring" viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="44"/><circle class="fgc" id="tRing" cx="50" cy="50" r="44" stroke-dasharray="276.5" stroke-dashoffset="0"/></svg>
@@ -106,7 +123,7 @@
 
 <div class="picker" id="picker" hidden><div class="pk"><small>الطالبة المختارة</small><b id="pkName">…</b><div class="row center"><button class="btn sun sm" id="pkAgain"><svg><use href="#i-dice"/></svg> مرة أخرى</button><button class="btn ghost sm" id="pkClose">إغلاق</button></div></div></div>
 <div class="imgsheet" id="imgSheet" role="dialog" aria-label="الصورة"><div class="box"><img id="imgSheetImg" alt=""><p id="imgSheetMsg">اضغطي مطولًا على الصورة، ثم اختاري «حفظ في الصور» أو «طباعة».</p><div class="row center"><a class="btn sm" id="imgSheetDl" download="صورة.png">تنزيل الصورة</a><button class="btn ghost sm" id="imgSheetClose">إغلاق</button></div></div></div>
-<div id="printArea"><img id="printImg" alt=""></div>
+<div id="printArea"></div>
 <div class="toast" id="toast"></div>
 {{EXTRA}}
 <script>

@@ -7,11 +7,15 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random(
 const BD=document.body.dataset,LKEY=BD.key;
 const store={get(k,d){try{const v=localStorage.getItem(LKEY+":"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(LKEY+":"+k,JSON.stringify(v))}catch(e){}}};
 const TEACHER="فاطمة الطلحي",PRINCIPAL="آمال باربود";
-const LOGO_SRC="__LOGO__",SIGN_SRC="__SIGN__";
+const LOGO_SRC="__LOGO__",SIGN_SRC="__SIGN__",BELL_SRC="__BELL__";
 
 /* ---------- sound, toast, confetti ---------- */
 const sfx=(()=>{let ctx;const tone=(f,d=.12,type="sine",g=.07,delay=0)=>{try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();const t=ctx.currentTime+delay,o=ctx.createOscillator(),v=ctx.createGain();o.type=type;o.frequency.setValueAtTime(f,t);v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v).connect(ctx.destination);o.start(t);o.stop(t+d+.02)}catch(e){}};
-  return{tap:()=>tone(660,.05,"triangle",.04),ok:()=>{tone(660,.12);tone(880,.16,"sine",.07,.1)},no:()=>tone(190,.18,"square",.035),win:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.22,"sine",.07,i*.11)),page:()=>tone(440,.05,"triangle",.025),tick:()=>tone(1000,.05,"square",.03),end:()=>[0,.25,.5].forEach(w=>tone(880,.18,"sine",.1,w))}})();
+  /* الجرس: نقرتان، ولكل نقرة نغمات غير متناسقة تخفت تدريجيًا كرنين الجرس المعدني */
+  const BELL=[[1,1,1.5],[1.004,.5,1.5],[2,.55,1],[2.76,.4,.7],[4.07,.25,.45],[5.4,.15,.3],[6.8,.08,.2]];
+  const bell=()=>{try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==="suspended")ctx.resume();const t0=ctx.currentTime+.02;
+    [0,.36].forEach((d,s)=>BELL.forEach(([r,a,dec])=>{const o=ctx.createOscillator(),v=ctx.createGain(),t=t0+d,end=t+dec*2.2;o.frequency.value=880*r;v.gain.setValueAtTime(.0001,t);v.gain.exponentialRampToValueAtTime(.16*a*(s?.85:1),t+.005);v.gain.exponentialRampToValueAtTime(.0001,end);o.connect(v).connect(ctx.destination);o.start(t);o.stop(end+.05)}))}catch(e){}};
+  return{tap:()=>tone(660,.05,"triangle",.04),ok:()=>{tone(660,.12);tone(880,.16,"sine",.07,.1)},no:()=>tone(190,.18,"square",.035),win:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.22,"sine",.07,i*.11)),page:()=>tone(440,.05,"triangle",.025),tick:()=>tone(1000,.05,"square",.03),end:()=>[0,.25,.5].forEach(w=>tone(880,.18,"sine",.1,w)),bell}})();
 let toastT;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),2600)}
 function confetti(){const box=document.createElement("div");box.className="confetti";const C=["#F6C66B","#C93A60","#11806F","#5A45B5","#D98A1C"];
   for(let i=0;i<70;i++){const p=document.createElement("i");p.style.left=Math.random()*100+"vw";p.style.background=C[i%C.length];p.style.setProperty("--dx",(Math.random()*200-100)+"px");p.style.setProperty("--r",(Math.random()*720-360)+"deg");p.style.animationDuration=(1.6+Math.random()*1.6)+"s";p.style.animationDelay=Math.random()*.4+"s";box.appendChild(p)}
@@ -50,6 +54,7 @@ document.addEventListener("click",e=>{
   const g=e.target.closest("[data-go]");if(g)go(+g.dataset.go);
   const t=e.target.closest("[data-timer]");if(t)startTimer(+t.dataset.timer);
   const f=e.target.closest("[data-flip]");if(f){f.classList.toggle("on");sfx.page()}
+  if(e.target.closest("[data-bell]"))ringBell();
 });
 document.addEventListener("keydown",e=>{
   if(e.target.matches("input,textarea,select")||e.ctrlKey||e.metaKey||e.altKey)return;
@@ -61,6 +66,7 @@ document.addEventListener("keydown",e=>{
   else if(k==="t"||k==="ف")startTimer(60);
   else if(k==="r"||k==="ق")pick();
   else if(k==="f"||k==="ب")full();
+  else if(k==="b"||k==="لا")ringBell();
 });
 (()=>{let x0,y0,t0,ok;const stg=$("#stage");
   stg.addEventListener("touchstart",e=>{const t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now();ok=!e.target.closest(".nosw,input,textarea,canvas,button.trait,.film,.seek")},{passive:true});
@@ -76,6 +82,16 @@ function setFs(){document.documentElement.style.setProperty("--fs",FS[fsI]);stor
 $("#btnFont").onclick=()=>{fsI=(fsI+1)%FS.length;setFs();toast("حجم الخط: "+ar(Math.round(FS[fsI]*100))+"٪")};
 function full(){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(e){}}
 $("#btnFull").onclick=full;
+/* الجرس: أول ٣ ثوانٍ من تسجيل الأستاذة (assets/bell.m4a)، وإن تعذّر تشغيله فجرس مُولَّد */
+let bellT,bellAud=null;
+function ringBell(){
+  try{bellAud=bellAud||new Audio(BELL_SRC);bellAud.currentTime=0;const p=bellAud.play();if(p&&p.catch)p.catch(()=>sfx.bell())}catch(e){sfx.bell()}
+  const B=$("#bellFx");B.hidden=false;B.classList.remove("ring");void B.offsetWidth;B.classList.add("ring");
+  clearTimeout(bellT);bellT=setTimeout(()=>B.hidden=true,1600);
+  $$("[data-bell]").forEach(x=>{x.classList.remove("ring");void x.offsetWidth;x.classList.add("ring")});
+}
+/* تنزيل الدرس ملفًا واحدًا (index.html نفسه مدمج فيه كل شيء)؛ النسخة المفتوحة من الجهاز لا تحتاجه */
+if(location.protocol==="file:")$("#dlLesson").hidden=true;
 
 /* ---------- teams ---------- */
 const TCOL=["#11806F","#D98A1C","#C93A60","#5A45B5","#2B7FB8","#6F6B80"];
@@ -118,7 +134,7 @@ $("#btnTimer").onclick=()=>$("#timer").hidden?startTimer(60):openDrawer("timer")
 const DEFN=Array.from({length:14},(_,i)=>"الطالبة "+ar(i+1));
 let names=store.get("names",DEFN),used=[];
 $("#names").value=names.join("\n");
-$("#saveNames").onclick=()=>{names=$("#names").value.split("\n").map(s=>s.trim()).filter(Boolean);if(!names.length)names=DEFN;store.set("names",names);used=[];toast("حُفظت الأسماء: "+ar(names.length))};
+$("#saveNames").onclick=()=>{names=$("#names").value.split("\n").map(s=>s.trim()).filter(Boolean);if(!names.length)names=DEFN;store.set("names",names);used=[];tcList();tcReset();toast("حُفظت الأسماء: "+ar(names.length))};
 function pick(){
   let pool=$("#noRepeat").checked?names.filter(n=>!used.includes(n)):names;
   if(!pool.length){used=[];pool=names}
@@ -176,7 +192,7 @@ $("#imgSheet").addEventListener("click",e=>{if(e.target.id==="imgSheet")$("#imgS
 /* يجب أن تكون الصورة جاهزة مسبقًا لتعمل الطباعة والمشاركة داخل اللمسة نفسها (متطلب سفاري الآيفون) */
 function printImage(url,name){
   if(inApp||typeof window.print!=="function"){showSheet(url,name,"هذا المتصفح لا يدعم الطباعة. اضغطي مطولًا على الصورة واختاري «طباعة» أو «حفظ في الصور»، أو افتحي الرابط في Safari.");return}
-  $("#printImg").src=url;document.body.classList.add("pimg");
+  $("#printArea").innerHTML=`<img src="${url}" alt="">`;tcReset();document.body.classList.add("pimg");
   try{window.print()}catch(e){showSheet(url,name)}
 }
 addEventListener("afterprint",()=>document.body.classList.remove("pimg"));
@@ -191,11 +207,10 @@ function tinted(im,w,h,color){const o=document.createElement("canvas");o.width=w
 /* ---------- certificate (score ≥ 70%) ---------- */
 const CERT_MIN=70;
 let certURL="",certFile=null,certJob=0,certT=null,certPct=0;
-async function drawCert(){
-  const job=++certJob,nm=($("#certName")||{}).value?$("#certName").value.trim():"";
+/* رسم الشهادة: تستعمله محطة الشهادة (بنسبة الطالبة) وتبويب «الشهادات» في لوحة الأستاذة (النسبة اختيارية) */
+async function certCanvas(nm,pct,date){
   try{await Promise.all(["700 90px Display","700 40px Body","400 30px Body"].map(f=>document.fonts.load(f)))}catch(e){}
   const[logo,sign]=await Promise.all([loadImg(LOGO_SRC),loadImg(SIGN_SRC)]);
-  if(job!==certJob)return;
   const W=1600,H=1130,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
   x.fillStyle="#FFFDF8";x.fillRect(0,0,W,H);
   const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#33246E");g.addColorStop(.6,"#5A45B5");g.addColorStop(1,"#C93A60");
@@ -208,14 +223,20 @@ async function drawCert(){
   x.fillStyle="#5E5A75";x.font="400 38px Body";x.fillText("تُمنح الطالبة",W/2,440);
   x.fillStyle="#C93A60";x.font="700 92px Display";x.fillText(nm||"……………………",W/2,560);
   x.fillStyle="#1D1A31";x.font="600 40px Body";
-  wrapLines(x,"لاجتيازها تقويم درس «"+BD.lesson+"» بنسبة "+ar(certPct)+"٪",W-360).forEach((l,i)=>x.fillText(l,W/2,660+i*60));
+  wrapLines(x,"لاجتيازها تقويم درس «"+BD.lesson+"»"+(pct>0?" بنسبة "+ar(pct)+"٪":""),W-360).forEach((l,i)=>x.fillText(l,W/2,660+i*60));
   x.fillStyle="#5E5A75";x.font="400 32px Body";x.fillText($(".ttl span").textContent.split("|")[0].trim(),W/2,750);
-  let dt="";try{dt=new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(new Date(store.get("certDate",Date.now())))}catch(e){}
+  let dt="";try{dt=new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric"}).format(new Date(date))}catch(e){}
   x.fillStyle="#5E5A75";x.font="400 28px Body";if(dt)x.fillText(dt,W/2,975);
   /* RTL: الأستاذة يسارًا مع التوقيع، والمديرة يمينًا */
   x.font="400 30px Body";x.fillStyle="#5E5A75";x.fillText("أستاذة المادة",390,850);x.fillText("مديرة المدرسة",W-390,850);
   x.font="700 40px Body";x.fillStyle="#33246E";x.fillText(TEACHER,390,1035);x.fillText(PRINCIPAL,W-390,1035);
   if(sign){const sw=210,sh=sw*sign.naturalHeight/sign.naturalWidth;x.drawImage(sign,390-sw/2,868,sw,sh)}
+  return c;
+}
+async function drawCert(){
+  const job=++certJob,nm=($("#certName")||{}).value?$("#certName").value.trim():"";
+  const c=await certCanvas(nm,certPct,store.get("certDate",Date.now()));
+  if(job!==certJob)return;
   certURL=c.toDataURL("image/png");
   const pv=$("#certImg");if(pv){pv.src=certURL;pv.hidden=false}
   c.toBlob(b=>{if(job===certJob&&b)try{certFile=new File([b],"شهادة-"+(nm||"الطالبة")+".png",{type:"image/png"})}catch(e){certFile=null}},"image/png");
@@ -244,6 +265,37 @@ function certRender(){
   drawCert();
 }
 certRender();
+
+/* ---------- لوحة الأستاذة: شهادة لأي طالبة، أو شهادات كل الأسماء في قائمة «الطالبات» ---------- */
+let tcURL="",tcFile=null,tcJob=0,tcT=null,tcReady=0;
+const tcPct=()=>{const v=parseInt(String($("#tcPct").value).replace(/[٠-٩]/g,d=>AR.indexOf(d)),10);return v>0&&v<=100?v:0};
+const realNames=()=>names.filter(n=>!DEFN.includes(n));
+function tcList(){$("#tcList").innerHTML=realNames().map(n=>`<option value="${esc(n)}">`).join("")}
+async function tcDraw(){
+  const job=++tcJob,nm=$("#tcName").value.trim();
+  if(!nm){tcURL="";$("#tcImg").hidden=true;return}
+  const c=await certCanvas(nm,tcPct(),Date.now());if(job!==tcJob)return;
+  tcURL=c.toDataURL("image/png");$("#tcImg").src=tcURL;$("#tcImg").hidden=false;
+  c.toBlob(b=>{if(job===tcJob&&b)try{tcFile=new File([b],"شهادة-"+nm+".png",{type:"image/png"})}catch(e){tcFile=null}},"image/png");
+}
+$("#tcName").oninput=$("#tcPct").oninput=()=>{clearTimeout(tcT);tcT=setTimeout(tcDraw,300)};
+function tcOk(){if(!$("#tcName").value.trim()){toast("اكتبي اسم الطالبة أولًا");$("#tcName").focus();return false}if(!tcURL){toast("لحظة… يتم تجهيز الشهادة");tcDraw();return false}return true}
+$("#tcPrint").onclick=()=>{if(tcOk())printImage(tcURL,"شهادة.png")};
+$("#tcSave").onclick=()=>{if(tcOk())shareImage(tcURL,tcFile,"شهادة.png","شهادة تميّز")};
+function tcReset(){tcReady=0;$("#tcAll").innerHTML=`<svg><use href="#i-award"/></svg> شهادات جميع الطالبات`}
+/* الضغطة الأولى تجهّز الشهادات، والثانية تطبعها (سفاري الآيفون يطبع داخل اللمسة فقط) */
+$("#tcAll").onclick=async()=>{
+  const b=$("#tcAll");
+  if(tcReady){if(inApp||typeof window.print!=="function"){toast("هذا المتصفح لا يدعم الطباعة");return}document.body.classList.add("pimg");try{window.print()}catch(e){}return}
+  const list=realNames();
+  if(!list.length){toast("اكتبي أسماء الطالبات أولًا");selTab("names");$("#names").focus();return}
+  b.disabled=true;b.textContent="جارٍ تجهيز الشهادات…";
+  const urls=[];for(const n of list)urls.push((await certCanvas(n,0,Date.now())).toDataURL("image/jpeg",.92));
+  $("#printArea").innerHTML=urls.map(u=>`<img src="${u}" alt="">`).join("");
+  await Promise.all($$("#printArea img").map(i=>i.decode?i.decode().catch(()=>{}):0));
+  tcReady=list.length;b.disabled=false;b.innerHTML=`<svg><use href="#i-print"/></svg> طباعة الشهادات (${ar(list.length)})`;sfx.ok();
+};
+tcList();
 
 /* ---------- quiz: QZ=[[question, options, answerIndex, why?]] ---------- */
 function quizInit(QZ,MSG){
