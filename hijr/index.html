@@ -323,7 +323,7 @@ h3{font-size:1.15rem;margin:0 0 8px;font-weight:700;color:var(--plum)}
 .aya{cursor:pointer;border-radius:10px;transition:background .3s}
 .aya:hover{background:var(--bg2)}
 .aya.cur{background:var(--lilac)}
-.ano{display:inline-grid;place-items:center;min-width:1.5em;height:1.5em;padding:0 .22em;font-size:.68em;border-radius:999px;border:1.5px solid var(--sun);color:var(--sun);font-family:"Body";font-weight:700;margin:0 4px;vertical-align:.15em;cursor:pointer}
+.ano{display:inline-flex;align-items:center;justify-content:center;line-height:1;min-width:1.5em;height:1.5em;padding:0 .22em;font-size:.68em;border-radius:999px;border:1.5px solid var(--sun);color:var(--sun);font-family:"Body";font-weight:700;margin:0 4px;vertical-align:.15em;cursor:pointer}
 .ayat .m{border-radius:8px;transition:background .3s,color .3s,box-shadow .3s}
 .ayat.lens-s .m.s{background:color-mix(in srgb,var(--seasoft) 85%,transparent);color:var(--sea)}
 .ayat.lens-h .m.h{background:var(--ashsoft);color:var(--rose)}
@@ -555,7 +555,7 @@ input[type=range]{width:100%;accent-color:var(--sea)}
 .quiz .qq .q{font-weight:400;color:var(--sea);font-size:1.25rem}
 .quiz .qo{display:grid;gap:8px}
 .quiz .qo button{border:1.5px solid var(--line);background:var(--card2);border-radius:16px;padding:10px 14px;text-align:start;font-weight:600;display:flex;gap:10px;align-items:center;transition:all .25s}
-.quiz .qo button i{font-style:normal;width:30px;height:30px;border-radius:10px;background:var(--bg2);display:grid;place-items:center;flex:none;font-weight:700}
+.quiz .qo button i{font-style:normal;width:30px;height:30px;border-radius:10px;background:var(--bg2);display:flex;align-items:center;justify-content:center;line-height:1;flex:none;font-weight:700}
 .quiz .qo button.ok{border-color:var(--sea);background:var(--seasoft)}
 .quiz .qo button.ok i{background:var(--sea);color:#fff}
 .quiz .qo button.no{border-color:var(--rose);background:var(--rosesoft)}
@@ -711,7 +711,7 @@ a.ib{color:inherit;text-decoration:none}
 .mcq .mq .q{color:var(--sea);font-size:1.2rem}
 .mo{display:grid;gap:8px}
 .mo button{display:flex;gap:10px;align-items:center;text-align:start;border:1.5px solid var(--line);background:var(--card2);border-radius:14px;padding:8px 12px;font-weight:600;transition:all .3s}
-.mo button i{font-style:normal;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:var(--sunsoft);color:var(--sun);flex:none;font-weight:700}
+.mo button i{font-style:normal;width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;line-height:1;background:var(--bg2);color:var(--ink);flex:none;font-weight:700}
 .mo button.ok{border-color:var(--sea);background:var(--seasoft);color:var(--sea)}
 .mo button.ok i{background:var(--sea);color:#fff}
 .mo button.no{border-color:var(--rose);background:var(--rosesoft)}
@@ -720,13 +720,11 @@ a.ib{color:inherit;text-decoration:none}
 /* hook: surah topics */
 .clues{display:grid;gap:10px}
 .clue{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line);background:var(--card);border-radius:18px;padding:12px 14px;text-align:start;box-shadow:var(--sh);font-weight:700}
-.clue .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--plum);color:var(--onplum);flex:none;font-family:"Display"}
+.clue .n{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;line-height:1;background:var(--plum);color:var(--onplum);flex:none;font-family:"Display"}
 .clue .t{filter:blur(6px);transition:filter .4s}
 .clue.on{border-color:var(--sun)}
 .clue.on .t{filter:none}
 .clue:not(.on) .t{user-select:none}
-.clue.hl.on{border-color:var(--sea);background:color-mix(in srgb,var(--seasoft) 55%,var(--card))}
-.clue.hl .n{background:var(--sea)}
 .sura-card .facts{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
 .sura-card .facts li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 14px;border-radius:14px;background:var(--card2);border:1.5px solid var(--line)}
 .sura-card .facts li b{color:var(--plum)}
@@ -734,6 +732,9 @@ a.ib{color:inherit;text-decoration:none}
 .plum-card{background:linear-gradient(150deg,#33246E,#5A45B5);color:#fff;border:0}
 .plum-card small{display:block;opacity:.85;font-weight:600}
 .plum-card b{display:block;font-family:"Display";font-size:1.5rem;line-height:1.6;margin-top:4px}
+
+/* verse numbers inside quoted verses (same circle as the mushaf) */
+.vn{display:inline-flex;align-items:center;justify-content:center;line-height:1;min-width:1.5em;height:1.5em;padding:0 .22em;font-size:.6em;border-radius:999px;border:1.5px solid var(--sun);color:var(--sun);font-family:"Body";font-weight:700;margin:0 3px;vertical-align:.2em}
 
 /* verses: lenses */
 .ayat.lens-g .m.g{background:color-mix(in srgb,var(--sunsoft) 90%,transparent);color:var(--sun)}
@@ -751,7 +752,7 @@ a.ib{color:inherit;text-decoration:none}
 .krule{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:10px 14px;margin:0 0 14px;font-size:.88rem}
 .krule b{width:100%;font-size:.95rem}
 .krule span{display:inline-flex;gap:6px;align-items:center;color:var(--ink2)}
-.krule i,.kr button{font-style:normal;width:26px;height:26px;border-radius:8px;display:inline-grid;place-items:center;background:var(--lilac);color:var(--plum);font-weight:700;flex:none}
+.krule i,.kr button{font-style:normal;width:28px;height:28px;padding:0;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;line-height:1;background:var(--lilac);color:var(--plum);font-weight:700;flex:none}
 .kr{display:flex;gap:6px;justify-content:center}
 .kr button{border:1.5px solid var(--line);background:var(--card2);color:var(--ink2);transition:all .2s}
 .kr button.on{background:var(--plum2);border-color:var(--plum2);color:#fff}
@@ -885,22 +886,21 @@ a.ib{color:inherit;text-decoration:none}
 .d7.on b{filter:none}
 .d7:active{transform:scale(.98)}
 
-/* gates of paradise */
+/* gates of paradise: two golden leaves slide open inside the tile (no 3D, so nothing spills over the next door) */
 .gates{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.gate{position:relative;height:150px;border:0;padding:0;background:none;perspective:700px;border-radius:70px 70px 14px 14px}
-.gate .inner{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(to bottom,#E9FBF4,#C8EFE2);border:2px solid #11806F;display:grid;align-content:center;justify-items:center;gap:4px;padding:16px 10px 8px;text-align:center;color:#0d4f45}
+.gate{position:relative;height:150px;border:2px solid #b8730f;padding:0;background:none;border-radius:70px 70px 14px 14px;overflow:hidden;isolation:isolate}
+.gate .inner{position:absolute;inset:0;background:linear-gradient(to bottom,#FFF8E8,#FDEBC4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:18px 10px 8px;text-align:center;color:#6b4206}
 .gate .inner b{font-size:.95rem;line-height:1.5}
 .gate .inner small{font-size:.74rem;line-height:1.5;opacity:.9}
-.gate .leaf{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(160deg,#F6C66B,#D98A1C);border:2px solid #b8730f;transition:transform 1s cubic-bezier(.4,0,.2,1);backface-visibility:hidden}
-.gate .leaf.r{right:0;border-radius:0 70px 14px 0;transform-origin:right center}
-.gate .leaf.l{left:0;border-radius:70px 0 0 14px;transform-origin:left center}
+.gate .leaf{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(160deg,#F6C66B,#D98A1C);transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.gate .leaf.r{right:0;border-left:1px solid #b8730f;transform-origin:right center}
+.gate .leaf.l{left:0;border-right:1px solid #b8730f;transform-origin:left center}
 .gate .leaf::after{content:"";position:absolute;top:62%;width:8px;height:8px;border-radius:50%;background:#7a4a08}
 .gate .leaf.r::after{left:10px}.gate .leaf.l::after{right:10px}
-.gate .num{position:absolute;top:16%;left:50%;transform:translateX(-50%);font-family:"Display";font-size:2rem;color:#fff;text-shadow:0 2px 6px #0005;transition:opacity .4s}
-.gate.open .leaf.r{transform:rotateY(-105deg)}
-.gate.open .leaf.l{transform:rotateY(105deg)}
+.gate .num{position:absolute;top:16%;left:50%;transform:translateX(-50%);font-family:"Display";font-size:2rem;line-height:1;color:#fff;text-shadow:0 2px 6px #0005;transition:opacity .4s;z-index:1}
+.gate.open .leaf{transform:scaleX(0)}
 .gate.open .num{opacity:0}
-:root[data-theme="night"] .gate .inner{background:linear-gradient(to bottom,#123A35,#0d2a26);color:#CDEFE6;border-color:#4CC9B6}
+:root[data-theme="night"] .gate .inner{background:linear-gradient(to bottom,#3A2C14,#2a200f);color:#F8CD7E}
 
 /* two wings */
 .bird{display:grid;place-items:center;margin:4px 0}
@@ -934,7 +934,7 @@ a.ib{color:inherit;text-decoration:none}
 .ideas{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .idea{position:relative;text-align:start;border:1.5px solid var(--line);border-radius:24px;padding:18px 18px 16px;display:grid;gap:6px;box-shadow:var(--sh);overflow:hidden;color:var(--ink);background:var(--card)}
 .idea::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--c)}
-.idea .n{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font-family:"Display";font-size:1.2rem}
+.idea .n{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;background:var(--c);color:#fff;font-family:"Display";font-size:1.2rem}
 .idea b{font-family:"Display";font-size:1.35rem;color:var(--c)}
 .idea p{margin:0;font-weight:600;line-height:1.9}
 .idea .tag{justify-self:start}
@@ -1167,7 +1167,7 @@ a.ib{color:inherit;text-decoration:none}
         <button class="clue"><span class="n">١</span><span class="t">إبراز حقيقة المكذبين بهذا الدين، ودوافعهم الأساسية للتكذيب.</span></button>
         <button class="clue"><span class="n">٢</span><span class="t">بيان سنة الله التي لا تتغير في الرسالة والرسل وأقوامهم، وبيان المصير المخيف الذي ينتظر الكافرين المكذبين.</span></button>
         <button class="clue"><span class="n">٣</span><span class="t">ذكر بعض الأدلة على وحدانية الله وقدرته في الكون، والتذكير بما أسبغه من النعم على جميع خلقه.</span></button>
-        <button class="clue hl"><span class="n">٤</span><span class="t">حكاية قصة خلق آدم عليه السلام، وسجود الملائكة له، وما كان بينه وبين إبليس.</span></button>
+        <button class="clue"><span class="n">٤</span><span class="t">حكاية قصة خلق آدم عليه السلام، وسجود الملائكة له، وما كان بينه وبين إبليس.</span></button>
         <button class="clue"><span class="n">٥</span><span class="t">ذكر جوانب من قصص أنبياء الله: إبراهيم، ولوط، وشعيب، وصالح -عليهم السلام-، والتنبيه على مصارع الغابرين من أقوامهم.</span></button>
         <button class="clue"><span class="n">٦</span><span class="t">مواساة النبي ﷺ وتوجيهه، وتوجيه الدعاة إلى الله من بعده نحو ما يجدونه من معاندة المكذبين واستهزائهم.</span></button>
       </div>
@@ -1291,7 +1291,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="خلق آدم وتكريمه" data-chap="آدم وإبليس">
 <div class="wrap">
   <div class="head"><span class="kick"><i>٨</i>الآيات ٢٨–٣٠ | فوائد وأحكام | ١</span><h2>خلقُ آدم <mark>وتكريمه</mark></h2>
-  <div class="verse sm">﴿وَإِذْ قَالَ رَبُّكَ لِلْمَلَائِكَةِ إِنِّي خَالِقٌ بَشَرًا مِّن صَلْصَالٍ مِّنْ حَمَإٍ مَّسْنُونٍ ۝٢٨ فَإِذَا سَوَّيْتُهُ وَنَفَخْتُ فِيهِ مِن رُّوحِي فَقَعُوا لَهُ سَاجِدِينَ ۝٢٩ فَسَجَدَ الْمَلَائِكَةُ كُلُّهُمْ أَجْمَعُونَ ۝٣٠﴾<span class="ref">[الحجر: ٢٨–٣٠]</span></div></div>
+  <div class="verse sm">﴿وَإِذْ قَالَ رَبُّكَ لِلْمَلَائِكَةِ إِنِّي خَالِقٌ بَشَرًا مِّن صَلْصَالٍ مِّنْ حَمَإٍ مَّسْنُونٍ <span class="vn">٢٨</span> فَإِذَا سَوَّيْتُهُ وَنَفَخْتُ فِيهِ مِن رُّوحِي فَقَعُوا لَهُ سَاجِدِينَ <span class="vn">٢٩</span> فَسَجَدَ الْمَلَائِكَةُ كُلُّهُمْ أَجْمَعُونَ <span class="vn">٣٠</span>﴾<span class="ref">[الحجر: ٢٨–٣٠]</span></div></div>
   <p class="lead" style="margin-top:0">استنتجي: ممّ خُلق آدم؟ وممّ خُلق إبليس؟ وممّ خُلقت الملائكة؟ المسي كل بطاقة.</p>
   <div class="origins" id="origins">
     <button class="orig o1" data-flip>
@@ -1340,7 +1340,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="إبليس يأبى السجود" data-chap="آدم وإبليس">
 <div class="wrap">
   <div class="head"><span class="kick"><i>٩</i>الآيات ٣١–٣٣</span><h2>إلا إبليس <mark>أبى</mark></h2>
-  <div class="verse sm">﴿إِلَّا إِبْلِيسَ أَبَىٰ أَن يَكُونَ مَعَ السَّاجِدِينَ ۝٣١ قَالَ يَا إِبْلِيسُ مَا لَكَ أَلَّا تَكُونَ مَعَ السَّاجِدِينَ ۝٣٢ قَالَ لَمْ أَكُن لِّأَسْجُدَ لِبَشَرٍ خَلَقْتَهُ مِن صَلْصَالٍ مِّنْ حَمَإٍ مَّسْنُونٍ ۝٣٣﴾<span class="ref">[الحجر: ٣١–٣٣]</span></div></div>
+  <div class="verse sm">﴿إِلَّا إِبْلِيسَ أَبَىٰ أَن يَكُونَ مَعَ السَّاجِدِينَ <span class="vn">٣١</span> قَالَ يَا إِبْلِيسُ مَا لَكَ أَلَّا تَكُونَ مَعَ السَّاجِدِينَ <span class="vn">٣٢</span> قَالَ لَمْ أَكُن لِّأَسْجُدَ لِبَشَرٍ خَلَقْتَهُ مِن صَلْصَالٍ مِّنْ حَمَإٍ مَّسْنُونٍ <span class="vn">٣٣</span>﴾<span class="ref">[الحجر: ٣١–٣٣]</span></div></div>
   <p class="lead" style="margin-top:0">قارني بين موقف الملائكة وموقف إبليس من أمر الله: المسي العبارة، ثم المسي الموقف المناسب لها.</p>
   <div class="pool nosw mt" id="mpool"></div>
   <div class="roads nosw" id="mlanes">
@@ -1419,7 +1419,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="طرد إبليس وإنظاره" data-chap="آدم وإبليس">
 <div class="wrap">
   <div class="head"><span class="kick"><i>١٢</i>الآيات ٣٤–٣٨</span><h2>فاخرج منها… <mark>فإنك رجيم</mark></h2>
-  <div class="verse sm">﴿قَالَ فَاخْرُجْ مِنْهَا فَإِنَّكَ رَجِيمٌ ۝٣٤ وَإِنَّ عَلَيْكَ اللَّعْنَةَ إِلَىٰ يَوْمِ الدِّينِ ۝٣٥ قَالَ رَبِّ فَأَنظِرْنِي إِلَىٰ يَوْمِ يُبْعَثُونَ ۝٣٦ قَالَ فَإِنَّكَ مِنَ الْمُنظَرِينَ ۝٣٧ إِلَىٰ يَوْمِ الْوَقْتِ الْمَعْلُومِ ۝٣٨﴾<span class="ref">[الحجر: ٣٤–٣٨]</span></div></div>
+  <div class="verse sm">﴿قَالَ فَاخْرُجْ مِنْهَا فَإِنَّكَ رَجِيمٌ <span class="vn">٣٤</span> وَإِنَّ عَلَيْكَ اللَّعْنَةَ إِلَىٰ يَوْمِ الدِّينِ <span class="vn">٣٥</span> قَالَ رَبِّ فَأَنظِرْنِي إِلَىٰ يَوْمِ يُبْعَثُونَ <span class="vn">٣٦</span> قَالَ فَإِنَّكَ مِنَ الْمُنظَرِينَ <span class="vn">٣٧</span> إِلَىٰ يَوْمِ الْوَقْتِ الْمَعْلُومِ <span class="vn">٣٨</span>﴾<span class="ref">[الحجر: ٣٤–٣٨]</span></div></div>
   <div class="grid2 even">
     <div>
       <div class="just">
@@ -1460,7 +1460,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="توعّد إبليس" data-chap="الغواية والنجاة">
 <div class="wrap">
   <div class="head"><span class="kick"><i>١٣</i>الآيتان ٣٩–٤٠</span><h2>لأُزيّننّ لهم… <mark>ولأُغوينّهم أجمعين</mark></h2>
-  <div class="verse sm">﴿قَالَ رَبِّ بِمَا أَغْوَيْتَنِي لَأُزَيِّنَنَّ لَهُمْ فِي الْأَرْضِ وَلَأُغْوِيَنَّهُمْ أَجْمَعِينَ ۝٣٩ إِلَّا عِبَادَكَ مِنْهُمُ الْمُخْلَصِينَ ۝٤٠﴾<span class="ref">[الحجر: ٣٩–٤٠]</span></div></div>
+  <div class="verse sm">﴿قَالَ رَبِّ بِمَا أَغْوَيْتَنِي لَأُزَيِّنَنَّ لَهُمْ فِي الْأَرْضِ وَلَأُغْوِيَنَّهُمْ أَجْمَعِينَ <span class="vn">٣٩</span> إِلَّا عِبَادَكَ مِنْهُمُ الْمُخْلَصِينَ <span class="vn">٤٠</span>﴾<span class="ref">[الحجر: ٣٩–٤٠]</span></div></div>
   <div class="grid2 even">
     <div>
       <div class="card">
@@ -1534,7 +1534,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="لا سلطان له عليهم" data-chap="الغواية والنجاة">
 <div class="wrap">
   <div class="head"><span class="kick"><i>١٥</i>الآيتان ٤١–٤٢ | فوائد وأحكام | ٥</span><h2>إنّ عبادي <mark>ليس لك عليهم سلطان</mark></h2>
-  <div class="verse sm">﴿قَالَ هَٰذَا صِرَاطٌ عَلَيَّ مُسْتَقِيمٌ ۝٤١ إِنَّ عِبَادِي لَيْسَ لَكَ عَلَيْهِمْ سُلْطَانٌ إِلَّا مَنِ اتَّبَعَكَ مِنَ الْغَاوِينَ ۝٤٢﴾<span class="ref">[الحجر: ٤١–٤٢]</span></div></div>
+  <div class="verse sm">﴿قَالَ هَٰذَا صِرَاطٌ عَلَيَّ مُسْتَقِيمٌ <span class="vn">٤١</span> إِنَّ عِبَادِي لَيْسَ لَكَ عَلَيْهِمْ سُلْطَانٌ إِلَّا مَنِ اتَّبَعَكَ مِنَ الْغَاوِينَ <span class="vn">٤٢</span>﴾<span class="ref">[الحجر: ٤١–٤٢]</span></div></div>
   <div class="card lil">
     <h3>تحتمل الآية <span class="q" style="color:var(--sea);font-weight:400">﴿قَالَ هَٰذَا صِرَاطٌ عَلَيَّ مُسْتَقِيمٌ﴾</span> معنيين، املئي فجوة المعلومات كما فسّرها ابن كثير.</h3>
     <p class="gtxt" id="ktxt2"><b>الأول:</b> على وجه <button class="gap" data-g="0">؟</button>، أي: مرجعكم كلكم إليّ، فأجازيكم بأعمالكم، إن <button class="gap" data-g="1">؟</button>، وإن <button class="gap" data-g="2">؟</button>.<br><b>والثاني:</b> قيل: معناه على استقامته بالبيان والبرهان والتوفيق والهداية.</p>
@@ -1577,7 +1577,7 @@ a.ib{color:inherit;text-decoration:none}
     </div>
     <div class="card rose">
       <span class="tag rose">فائدة ٤</span>
-      <p style="margin:8px 0 0">مهمة إبليس ووظيفته في الأرض: إغواء الناس والسعي إلى ضلالهم وانحرافهم عن الصراط المستقيم؛ فقد جعله الله عدوًّا لآدم وبنيه من بعده، قال تعالى: <span class="q" style="color:var(--sea)">﴿أَلَمْ أَعْهَدْ إِلَيْكُمْ يَا بَنِي آدَمَ أَن لَّا تَعْبُدُوا الشَّيْطَانَ ۖ إِنَّهُ لَكُمْ عَدُوٌّ مُّبِينٌ ۝٦٠ وَأَنِ اعْبُدُونِي ۚ هَٰذَا صِرَاطٌ مُّسْتَقِيمٌ ۝٦١﴾</span> [يس: ٦٠–٦١]؛ ولذا على العاقل الفطِن أن يحذر من خطوات الشيطان ووساوسه؛ فإنه لا يدل إلا على الشر والهلاك.</p>
+      <p style="margin:8px 0 0">مهمة إبليس ووظيفته في الأرض: إغواء الناس والسعي إلى ضلالهم وانحرافهم عن الصراط المستقيم؛ فقد جعله الله عدوًّا لآدم وبنيه من بعده، قال تعالى: <span class="q" style="color:var(--sea)">﴿أَلَمْ أَعْهَدْ إِلَيْكُمْ يَا بَنِي آدَمَ أَن لَّا تَعْبُدُوا الشَّيْطَانَ ۖ إِنَّهُ لَكُمْ عَدُوٌّ مُّبِينٌ <span class="vn">٦٠</span> وَأَنِ اعْبُدُونِي ۚ هَٰذَا صِرَاطٌ مُّسْتَقِيمٌ <span class="vn">٦١</span>﴾</span> [يس: ٦٠–٦١]؛ ولذا على العاقل الفطِن أن يحذر من خطوات الشيطان ووساوسه؛ فإنه لا يدل إلا على الشر والهلاك.</p>
     </div>
   </div>
 </div>
@@ -1587,7 +1587,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="لها سبعة أبواب" data-chap="الغواية والنجاة">
 <div class="wrap">
   <div class="head"><span class="kick"><i>١٧</i>الآيتان ٤٣–٤٤</span><h2>لها سبعة أبواب… <mark>لكل باب منهم جزء مقسوم</mark></h2>
-  <div class="verse sm">﴿وَإِنَّ جَهَنَّمَ لَمَوْعِدُهُمْ أَجْمَعِينَ ۝٤٣ لَهَا سَبْعَةُ أَبْوَابٍ لِّكُلِّ بَابٍ مِّنْهُمْ جُزْءٌ مَّقْسُومٌ ۝٤٤﴾<span class="ref">[الحجر: ٤٣–٤٤]</span></div></div>
+  <div class="verse sm">﴿وَإِنَّ جَهَنَّمَ لَمَوْعِدُهُمْ أَجْمَعِينَ <span class="vn">٤٣</span> لَهَا سَبْعَةُ أَبْوَابٍ لِّكُلِّ بَابٍ مِّنْهُمْ جُزْءٌ مَّقْسُومٌ <span class="vn">٤٤</span>﴾<span class="ref">[الحجر: ٤٣–٤٤]</span></div></div>
   <div class="grid2 even">
     <div>
       <div class="card">
@@ -1619,7 +1619,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="نعيم المتقين" data-chap="نعيم المتقين">
 <div class="wrap" style="max-width:1040px">
   <div class="head"><span class="kick"><i>١٨</i>الآيات ٤٥–٤٨ | فوائد وأحكام | ٧</span><h2>إنّ المتقين <mark>في جنات وعيون</mark></h2>
-  <div class="verse sm">﴿إِنَّ الْمُتَّقِينَ فِي جَنَّاتٍ وَعُيُونٍ ۝٤٥ ادْخُلُوهَا بِسَلَامٍ آمِنِينَ ۝٤٦ وَنَزَعْنَا مَا فِي صُدُورِهِم مِّنْ غِلٍّ إِخْوَانًا عَلَىٰ سُرُرٍ مُّتَقَابِلِينَ ۝٤٧ لَا يَمَسُّهُمْ فِيهَا نَصَبٌ وَمَا هُم مِّنْهَا بِمُخْرَجِينَ ۝٤٨﴾<span class="ref">[الحجر: ٤٥–٤٨]</span></div>
+  <div class="verse sm">﴿إِنَّ الْمُتَّقِينَ فِي جَنَّاتٍ وَعُيُونٍ <span class="vn">٤٥</span> ادْخُلُوهَا بِسَلَامٍ آمِنِينَ <span class="vn">٤٦</span> وَنَزَعْنَا مَا فِي صُدُورِهِم مِّنْ غِلٍّ إِخْوَانًا عَلَىٰ سُرُرٍ مُّتَقَابِلِينَ <span class="vn">٤٧</span> لَا يَمَسُّهُمْ فِيهَا نَصَبٌ وَمَا هُم مِّنْهَا بِمُخْرَجِينَ <span class="vn">٤٨</span>﴾<span class="ref">[الحجر: ٤٥–٤٨]</span></div>
   <p class="lead">وصفت الآيات نعيم الجنة بستّ صفات، منها ما يأتي: اختاري الصفة، ثم المسي موضعها من الآيات.</p></div>
   <div class="keyrow long" id="jkeys"></div>
   <div class="locks wide" id="jlocks"></div>
@@ -1693,7 +1693,7 @@ a.ib{color:inherit;text-decoration:none}
 <section class="st" data-title="الخوف والرجاء" data-chap="نعيم المتقين">
 <div class="wrap">
   <div class="head"><span class="kick"><i>٢١</i>الآيتان ٤٩–٥٠ | فوائد وأحكام | ٨</span><h2>بين <mark>الخوف والرجاء</mark></h2>
-  <div class="verse sm">﴿نَبِّئْ عِبَادِي أَنِّي أَنَا الْغَفُورُ الرَّحِيمُ ۝٤٩ وَأَنَّ عَذَابِي هُوَ الْعَذَابُ الْأَلِيمُ ۝٥٠﴾<span class="ref">[الحجر: ٤٩–٥٠]</span></div></div>
+  <div class="verse sm">﴿نَبِّئْ عِبَادِي أَنِّي أَنَا الْغَفُورُ الرَّحِيمُ <span class="vn">٤٩</span> وَأَنَّ عَذَابِي هُوَ الْعَذَابُ الْأَلِيمُ <span class="vn">٥٠</span>﴾<span class="ref">[الحجر: ٤٩–٥٠]</span></div></div>
   <div class="grid2 even">
     <div>
       <div class="card wingcard">
@@ -1736,7 +1736,7 @@ a.ib{color:inherit;text-decoration:none}
       </div>
       <div class="card sun mt">
         <span class="tag sun">أستثمر التقنية ص١٢٥</span>
-        <p style="margin:10px 0 6px;font-weight:600">قال تعالى في الآيات المتقدمة: <span class="q" style="color:var(--sea);font-weight:400">﴿نَبِّئْ عِبَادِي أَنِّي أَنَا الْغَفُورُ الرَّحِيمُ ۝٤٩ وَأَنَّ عَذَابِي هُوَ الْعَذَابُ الْأَلِيمُ ۝٥٠﴾</span> فقدّم الرحمة على العذاب، بينما قال في موضع آخر: <span class="q" style="color:var(--sea);font-weight:400">﴿اعْلَمُوا أَنَّ اللَّهَ شَدِيدُ الْعِقَابِ وَأَنَّ اللَّهَ غَفُورٌ رَّحِيمٌ﴾</span> [المائدة: ٩٨] فقدّم العذاب على الرحمة. بالاستفادة من أحد المصادر الرقمية المتخصصة في تفسير القرآن الكريم، اكتبي آية المائدة السابقة في موضع البحث، ثم اختاري من القائمة (تفسير ابن عثيمين)، ولخّصي ما ذكره -رحمه الله- في المقارنة بين الآيتين.</p>
+        <p style="margin:10px 0 6px;font-weight:600">قال تعالى في الآيات المتقدمة: <span class="q" style="color:var(--sea);font-weight:400">﴿نَبِّئْ عِبَادِي أَنِّي أَنَا الْغَفُورُ الرَّحِيمُ <span class="vn">٤٩</span> وَأَنَّ عَذَابِي هُوَ الْعَذَابُ الْأَلِيمُ <span class="vn">٥٠</span>﴾</span> فقدّم الرحمة على العذاب، بينما قال في موضع آخر: <span class="q" style="color:var(--sea);font-weight:400">﴿اعْلَمُوا أَنَّ اللَّهَ شَدِيدُ الْعِقَابِ وَأَنَّ اللَّهَ غَفُورٌ رَّحِيمٌ﴾</span> [المائدة: ٩٨] فقدّم العذاب على الرحمة. بالاستفادة من أحد المصادر الرقمية المتخصصة في تفسير القرآن الكريم، اكتبي آية المائدة السابقة في موضع البحث، ثم اختاري من القائمة (تفسير ابن عثيمين)، ولخّصي ما ذكره -رحمه الله- في المقارنة بين الآيتين.</p>
         <button class="btn sm sun" data-reveal="uthaymin">ما ذكره ابن عثيمين</button>
         <div class="reveal" id="uthaymin"><div><div class="ans" style="font-weight:500">ذكر -رحمه الله- أن الفرق بين الآيتين يتلخص في أن آية سورة الحجر (نَبِّئْ) أمر من الله للرسول ﷺ أن ينبئ الخلق، وقدّم الوصف بالمغفرة والرحمة على العذاب الأليم؛ لأن المقصود الإخبار عن صفة الله عز وجل، فقدّم الجانب الذي فيه اللطف والإحسان، وأما آية سورة المائدة فقد ذُكرت عقيب أحكام عظيمة قد يُخلّ بها المرء، فقدّم فيها جانب التهديد.</div></div></div>
       </div>
@@ -2540,7 +2540,7 @@ $("#vtiles").onclick=e=>{const t=e.target.closest(".vtile");if(!t||cI>=CN.length
 $("#cReset").onclick=cInit;cInit();
 keyLock("#tkeys","#tlocks","#tFb",[
   ["﴿وَإِذْ قَالَ رَبُّكَ لِلْمَلَائِكَةِ إِنِّي خَالِقٌ بَشَرًا مِّن صَلْصَالٍ مِّنْ حَمَإٍ مَّسْنُونٍ﴾","الحجر: ٢٨","حكاية قصة خلق آدم عليه السلام."],
-  ["﴿إِنَّ عِبَادِي لَيْسَ لَكَ عَلَيْهِمْ سُلْطَانٌ إِلَّا مَنِ اتَّبَعَكَ مِنَ الْغَاوِينَ ۝٤٢ وَإِنَّ جَهَنَّمَ لَمَوْعِدُهُمْ أَجْمَعِينَ ۝٤٣﴾","الحجر: ٤٢–٤٣","بيان المصير المخيف الذي ينتظر الكافرين المكذبين."]
+  ["﴿إِنَّ عِبَادِي لَيْسَ لَكَ عَلَيْهِمْ سُلْطَانٌ إِلَّا مَنِ اتَّبَعَكَ مِنَ الْغَاوِينَ <span class='vn'>٤٢</span> وَإِنَّ جَهَنَّمَ لَمَوْعِدُهُمْ أَجْمَعِينَ <span class='vn'>٤٣</span>﴾","الحجر: ٤٢–٤٣","بيان المصير المخيف الذي ينتظر الكافرين المكذبين."]
 ],["إبراز حقيقة المكذبين بهذا الدين، ودوافعهم الأساسية للتكذيب.","مواساة النبي ﷺ وتوجيهه."],"أحسنتِ!");
 
 /* ========== 25 tajweed hunt: الراء المرققة ========== */

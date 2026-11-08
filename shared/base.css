@@ -314,7 +314,7 @@ h3{font-size:1.15rem;margin:0 0 8px;font-weight:700;color:var(--plum)}
 .aya{cursor:pointer;border-radius:10px;transition:background .3s}
 .aya:hover{background:var(--bg2)}
 .aya.cur{background:var(--lilac)}
-.ano{display:inline-grid;place-items:center;min-width:1.5em;height:1.5em;padding:0 .22em;font-size:.68em;border-radius:999px;border:1.5px solid var(--sun);color:var(--sun);font-family:"Body";font-weight:700;margin:0 4px;vertical-align:.15em;cursor:pointer}
+.ano{display:inline-flex;align-items:center;justify-content:center;line-height:1;min-width:1.5em;height:1.5em;padding:0 .22em;font-size:.68em;border-radius:999px;border:1.5px solid var(--sun);color:var(--sun);font-family:"Body";font-weight:700;margin:0 4px;vertical-align:.15em;cursor:pointer}
 .ayat .m{border-radius:8px;transition:background .3s,color .3s,box-shadow .3s}
 .ayat.lens-s .m.s{background:color-mix(in srgb,var(--seasoft) 85%,transparent);color:var(--sea)}
 .ayat.lens-h .m.h{background:var(--ashsoft);color:var(--rose)}
@@ -546,7 +546,7 @@ input[type=range]{width:100%;accent-color:var(--sea)}
 .quiz .qq .q{font-weight:400;color:var(--sea);font-size:1.25rem}
 .quiz .qo{display:grid;gap:8px}
 .quiz .qo button{border:1.5px solid var(--line);background:var(--card2);border-radius:16px;padding:10px 14px;text-align:start;font-weight:600;display:flex;gap:10px;align-items:center;transition:all .25s}
-.quiz .qo button i{font-style:normal;width:30px;height:30px;border-radius:10px;background:var(--bg2);display:grid;place-items:center;flex:none;font-weight:700}
+.quiz .qo button i{font-style:normal;width:30px;height:30px;border-radius:10px;background:var(--bg2);display:flex;align-items:center;justify-content:center;line-height:1;flex:none;font-weight:700}
 .quiz .qo button.ok{border-color:var(--sea);background:var(--seasoft)}
 .quiz .qo button.ok i{background:var(--sea);color:#fff}
 .quiz .qo button.no{border-color:var(--rose);background:var(--rosesoft)}

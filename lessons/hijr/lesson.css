@@ -14,7 +14,7 @@
 .mcq .mq .q{color:var(--sea);font-size:1.2rem}
 .mo{display:grid;gap:8px}
 .mo button{display:flex;gap:10px;align-items:center;text-align:start;border:1.5px solid var(--line);background:var(--card2);border-radius:14px;padding:8px 12px;font-weight:600;transition:all .3s}
-.mo button i{font-style:normal;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:var(--sunsoft);color:var(--sun);flex:none;font-weight:700}
+.mo button i{font-style:normal;width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;line-height:1;background:var(--bg2);color:var(--ink);flex:none;font-weight:700}
 .mo button.ok{border-color:var(--sea);background:var(--seasoft);color:var(--sea)}
 .mo button.ok i{background:var(--sea);color:#fff}
 .mo button.no{border-color:var(--rose);background:var(--rosesoft)}
@@ -23,13 +23,11 @@
 /* hook: surah topics */
 .clues{display:grid;gap:10px}
 .clue{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line);background:var(--card);border-radius:18px;padding:12px 14px;text-align:start;box-shadow:var(--sh);font-weight:700}
-.clue .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--plum);color:var(--onplum);flex:none;font-family:"Display"}
+.clue .n{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;line-height:1;background:var(--plum);color:var(--onplum);flex:none;font-family:"Display"}
 .clue .t{filter:blur(6px);transition:filter .4s}
 .clue.on{border-color:var(--sun)}
 .clue.on .t{filter:none}
 .clue:not(.on) .t{user-select:none}
-.clue.hl.on{border-color:var(--sea);background:color-mix(in srgb,var(--seasoft) 55%,var(--card))}
-.clue.hl .n{background:var(--sea)}
 .sura-card .facts{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
 .sura-card .facts li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 14px;border-radius:14px;background:var(--card2);border:1.5px solid var(--line)}
 .sura-card .facts li b{color:var(--plum)}
@@ -37,6 +35,9 @@
 .plum-card{background:linear-gradient(150deg,#33246E,#5A45B5);color:#fff;border:0}
 .plum-card small{display:block;opacity:.85;font-weight:600}
 .plum-card b{display:block;font-family:"Display";font-size:1.5rem;line-height:1.6;margin-top:4px}
+
+/* verse numbers inside quoted verses (same circle as the mushaf) */
+.vn{display:inline-flex;align-items:center;justify-content:center;line-height:1;min-width:1.5em;height:1.5em;padding:0 .22em;font-size:.6em;border-radius:999px;border:1.5px solid var(--sun);color:var(--sun);font-family:"Body";font-weight:700;margin:0 3px;vertical-align:.2em}
 
 /* verses: lenses */
 .ayat.lens-g .m.g{background:color-mix(in srgb,var(--sunsoft) 90%,transparent);color:var(--sun)}
@@ -54,7 +55,7 @@
 .krule{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:10px 14px;margin:0 0 14px;font-size:.88rem}
 .krule b{width:100%;font-size:.95rem}
 .krule span{display:inline-flex;gap:6px;align-items:center;color:var(--ink2)}
-.krule i,.kr button{font-style:normal;width:26px;height:26px;border-radius:8px;display:inline-grid;place-items:center;background:var(--lilac);color:var(--plum);font-weight:700;flex:none}
+.krule i,.kr button{font-style:normal;width:28px;height:28px;padding:0;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;line-height:1;background:var(--lilac);color:var(--plum);font-weight:700;flex:none}
 .kr{display:flex;gap:6px;justify-content:center}
 .kr button{border:1.5px solid var(--line);background:var(--card2);color:var(--ink2);transition:all .2s}
 .kr button.on{background:var(--plum2);border-color:var(--plum2);color:#fff}
@@ -188,22 +189,21 @@
 .d7.on b{filter:none}
 .d7:active{transform:scale(.98)}
 
-/* gates of paradise */
+/* gates of paradise: two golden leaves slide open inside the tile (no 3D, so nothing spills over the next door) */
 .gates{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.gate{position:relative;height:150px;border:0;padding:0;background:none;perspective:700px;border-radius:70px 70px 14px 14px}
-.gate .inner{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(to bottom,#E9FBF4,#C8EFE2);border:2px solid #11806F;display:grid;align-content:center;justify-items:center;gap:4px;padding:16px 10px 8px;text-align:center;color:#0d4f45}
+.gate{position:relative;height:150px;border:2px solid #b8730f;padding:0;background:none;border-radius:70px 70px 14px 14px;overflow:hidden;isolation:isolate}
+.gate .inner{position:absolute;inset:0;background:linear-gradient(to bottom,#FFF8E8,#FDEBC4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:18px 10px 8px;text-align:center;color:#6b4206}
 .gate .inner b{font-size:.95rem;line-height:1.5}
 .gate .inner small{font-size:.74rem;line-height:1.5;opacity:.9}
-.gate .leaf{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(160deg,#F6C66B,#D98A1C);border:2px solid #b8730f;transition:transform 1s cubic-bezier(.4,0,.2,1);backface-visibility:hidden}
-.gate .leaf.r{right:0;border-radius:0 70px 14px 0;transform-origin:right center}
-.gate .leaf.l{left:0;border-radius:70px 0 0 14px;transform-origin:left center}
+.gate .leaf{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(160deg,#F6C66B,#D98A1C);transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.gate .leaf.r{right:0;border-left:1px solid #b8730f;transform-origin:right center}
+.gate .leaf.l{left:0;border-right:1px solid #b8730f;transform-origin:left center}
 .gate .leaf::after{content:"";position:absolute;top:62%;width:8px;height:8px;border-radius:50%;background:#7a4a08}
 .gate .leaf.r::after{left:10px}.gate .leaf.l::after{right:10px}
-.gate .num{position:absolute;top:16%;left:50%;transform:translateX(-50%);font-family:"Display";font-size:2rem;color:#fff;text-shadow:0 2px 6px #0005;transition:opacity .4s}
-.gate.open .leaf.r{transform:rotateY(-105deg)}
-.gate.open .leaf.l{transform:rotateY(105deg)}
+.gate .num{position:absolute;top:16%;left:50%;transform:translateX(-50%);font-family:"Display";font-size:2rem;line-height:1;color:#fff;text-shadow:0 2px 6px #0005;transition:opacity .4s;z-index:1}
+.gate.open .leaf{transform:scaleX(0)}
 .gate.open .num{opacity:0}
-:root[data-theme="night"] .gate .inner{background:linear-gradient(to bottom,#123A35,#0d2a26);color:#CDEFE6;border-color:#4CC9B6}
+:root[data-theme="night"] .gate .inner{background:linear-gradient(to bottom,#3A2C14,#2a200f);color:#F8CD7E}
 
 /* two wings */
 .bird{display:grid;place-items:center;margin:4px 0}
@@ -237,7 +237,7 @@
 .ideas{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .idea{position:relative;text-align:start;border:1.5px solid var(--line);border-radius:24px;padding:18px 18px 16px;display:grid;gap:6px;box-shadow:var(--sh);overflow:hidden;color:var(--ink);background:var(--card)}
 .idea::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--c)}
-.idea .n{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font-family:"Display";font-size:1.2rem}
+.idea .n{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;background:var(--c);color:#fff;font-family:"Display";font-size:1.2rem}
 .idea b{font-family:"Display";font-size:1.35rem;color:var(--c)}
 .idea p{margin:0;font-weight:600;line-height:1.9}
 .idea .tag{justify-self:start}
