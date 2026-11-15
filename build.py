@@ -183,10 +183,20 @@ def add_cert(sections):
     return sections[:end] + "\n" + read("shared/cert.html").replace("{{CHAP}}", chap) + sections[end:]
 
 
+def add_sources(sections, plan):
+    """يعرض سطر المصادر (من ملاحظة «مصدر المحتوى» في خطة الحصة) أسفل محطة غلق الدرس."""
+    m = re.search(r'<p class="note">مصدر المحتوى: (.*?)</p>', plan)
+    if not m:
+        return sections
+    end = sections.rindex("</section>")
+    cut = sections.rindex("</div>", 0, end)
+    return sections[:cut] + '  <p class="srcline">المصادر: ' + m.group(1) + "</p>" + chr(10) + sections[cut:]
+
+
 def build_lesson(L):
     d = "lessons/" + L["id"] + "/"
     p = parts(read(d + "lesson.html"))
-    p["sections"] = add_cert(p["sections"])
+    p["sections"] = add_sources(add_cert(p["sections"]), p.get("plan", ""))
     css = read("shared/base.css")
     if L.get("kit"):  # مكوّنات مشتركة لدروس الحجر والنحل الجديدة
         css += "\n" + read("shared/kit.css")
