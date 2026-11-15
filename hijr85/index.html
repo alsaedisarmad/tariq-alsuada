@@ -695,16 +695,7 @@ a.ib{color:inherit;text-decoration:none}
   body:not(.pimg) .pcard{position:fixed;inset:20px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 
-/* درس الحجر ٨٥–٩٩: مكوّنات خاصة بالدرس */
-.cover h1.h8-h1{font-size:clamp(1.8rem,3.7vw,3.1rem)}
-.cover h1.h8-h1 .saw{font-family:"Body";font-size:.5em;vertical-align:.35em}
-.h8rays path{opacity:.25;animation:h8ray 4.2s ease-in-out infinite;animation-delay:var(--d)}
-@keyframes h8ray{0%,100%{opacity:.22}50%{opacity:.85}}
-
-.vows.six{grid-template-columns:repeat(3,1fr)}
-.vows.six .vow{padding:16px 12px}
-.vows.six .vow .star{width:46px;height:46px}
-
+/* مكوّنات مشتركة لدروس الوحدتين الثامنة والتاسعة (تُضاف عند kit=True) */
 /* verse highlight */
 .verse mark.hl{background:color-mix(in srgb,var(--sun2) 45%,transparent);color:inherit;border-radius:8px;padding:0 4px}
 .vn{display:inline-flex;align-items:center;justify-content:center;line-height:1;min-width:1.5em;height:1.5em;padding:0 .22em;font-size:.6em;border-radius:999px;border:1.5px solid var(--sun);color:var(--sun);font-family:"Body";font-weight:700;margin:0 3px;vertical-align:.2em}
@@ -777,17 +768,6 @@ a.ib{color:inherit;text-decoration:none}
 .jrow.on>span{filter:none;user-select:auto}
 .claim{font-weight:700;line-height:2;background:var(--card);border-radius:14px;padding:8px 12px;border-inline-start:4px solid var(--sun)}
 
-/* three beautiful: wooden signs */
-.signs{display:grid;gap:12px;justify-items:center;padding-top:6px;position:relative}
-.signs::before{content:"";position:absolute;top:0;bottom:10px;left:50%;width:4px;transform:translateX(-50%);background:repeating-linear-gradient(to bottom,#8a5a2b 0 8px,#a9733e 8px 12px);border-radius:2px}
-.sign{position:relative;width:min(100%,330px);border:0;border-radius:14px;padding:12px 16px;color:#3b230e;
-  background:repeating-linear-gradient(90deg,#00000008 0 2px,transparent 2px 14px),linear-gradient(to bottom,#E9B97A,#C98A4B);box-shadow:inset 0 0 0 3px #a9733e,0 10px 18px -12px #000a;display:grid;gap:2px;text-align:center;transition:transform .3s}
-.sign:nth-child(2){transform:rotate(-1.5deg)}.sign:nth-child(3){transform:rotate(1.2deg)}
-.sign b{font-family:"Display";font-size:1.25rem}
-.sign span{font-weight:700;filter:blur(6px);transition:filter .4s;user-select:none}
-.sign.on span{filter:none}
-.sign.on{box-shadow:inset 0 0 0 3px #11806F,0 10px 18px -12px #000a}
-
 /* key → lock */
 .lock .tx{font-weight:600;line-height:1.9;font-size:.95rem}
 .lock .tx small{color:var(--ink2);font-size:.75rem}
@@ -797,48 +777,6 @@ a.ib{color:inherit;text-decoration:none}
 .keyrow.long .key svg{flex:none}
 .locks.wide .lock{grid-template-columns:1fr 1.1fr}
 
-/* hourglass */
-.hg{width:44px;height:62px;margin:8px auto 10px;position:relative;animation:hgflip 4s ease-in-out infinite}
-.hg i{position:absolute;left:0;right:0;height:50%;border:3px solid var(--sun);background:linear-gradient(to bottom,transparent 40%,var(--sun2) 40%)}
-.hg i:first-child{top:0;border-radius:6px 6px 50% 50%/6px 6px 100% 100%}
-.hg i:last-child{bottom:0;border-radius:50% 50% 6px 6px/100% 100% 6px 6px;background:linear-gradient(to top,var(--sun2) 45%,transparent 45%)}
-@keyframes hgflip{0%,80%{transform:rotate(0)}100%{transform:rotate(180deg)}}
-
-/* seven verses of al-fatiha */
-.seven{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;position:relative}
-.s7{border:1.5px solid var(--line);background:var(--card);border-radius:20px;padding:10px 8px 12px;display:grid;justify-items:center;align-content:start;gap:4px;box-shadow:var(--sh);transition:all .4s;min-height:150px}
-.st7{position:relative;width:52px;height:52px;display:grid;place-items:center}
-.st7 svg{position:absolute;inset:0;width:100%;height:100%}
-.st7 svg path{fill:var(--lilac);stroke:var(--plum2);stroke-width:1.2;transition:all .5s}
-.st7 b{position:relative;font-family:"Display";color:var(--plum);font-size:1.1rem;line-height:1;padding-top:3px}
-.s7 .q{font-size:1.08rem;line-height:1.9;text-align:center;color:var(--sea);filter:blur(6px);transition:filter .5s;user-select:none}
-.s7.on{border-color:var(--sun);background:color-mix(in srgb,var(--sunsoft) 55%,var(--card))}
-.s7.on .st7 svg path{fill:var(--sun2);stroke:var(--sun)}
-.s7.on .st7{animation:pop .5s}
-.s7.on .q{filter:none;user-select:auto}
-.s7cap{grid-column:1/-1;text-align:center;margin:4px 0 0;font-family:"Display";font-size:1.3rem;color:var(--sun);opacity:0;transition:opacity .6s}
-.seven.all .s7cap{opacity:1}
-
-/* logic chain */
-.logic{display:grid;gap:8px;margin-top:8px}
-.lstep{display:flex;gap:10px;align-items:center;text-align:start;border:1.5px dashed var(--line);background:var(--card2);border-radius:16px;padding:8px 12px;font-weight:600;line-height:1.8;transition:all .35s;position:relative}
-.lstep .n{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--bg2);font-weight:700;flex:none}
-.lstep>span:last-child{filter:blur(5px);transition:filter .4s;user-select:none}
-.lstep .q{font-size:1.1rem}
-.lstep.on{border-style:solid;border-color:var(--sea);background:color-mix(in srgb,var(--seasoft) 50%,var(--card))}
-.lstep.on .n{background:var(--sea);color:#fff}
-.lstep.on>span:last-child{filter:none;user-select:auto}
-.logic.done .lstep:last-child{border-color:var(--sun);background:color-mix(in srgb,var(--sunsoft) 70%,var(--card))}
-
-/* scale */
-.scale svg{width:100%;max-width:380px;display:block;margin:0 auto;overflow:visible}
-.scale .beam{transform-origin:200px 50px;transform-box:view-box;transition:transform 1.2s cubic-bezier(.3,1.4,.5,1)}
-.scale.tip .beam{transform:rotate(9deg)}
-.scale .pan{cursor:pointer;opacity:.45;transition:opacity .4s,transform 1.2s cubic-bezier(.3,1.4,.5,1)}
-.scale.tip .pr{transform:translateY(16px)}.scale.tip .pl{transform:translateY(-16px)}
-.scale .pan.on{opacity:1}
-.scale text{font-family:"Display";font-size:20px;text-anchor:middle;fill:var(--ink);direction:rtl}
-
 /* gap fill */
 .gtxt{line-height:2.5;font-weight:600;margin:6px 0 12px}
 .gap{border:2px dashed var(--plum2);background:var(--card);border-radius:12px;padding:0 14px;min-width:70px;font-weight:700;color:var(--plum2);line-height:1.9;vertical-align:middle;transition:all .3s}
@@ -846,15 +784,6 @@ a.ib{color:inherit;text-decoration:none}
 .gchip{border-radius:14px;line-height:1.9}
 .gchip.used{opacity:.3;pointer-events:none}
 .pool{gap:8px}
-
-/* lowering the wing */
-.hen svg{width:100%;max-width:360px;display:block;margin:0 auto;cursor:pointer}
-.hen .hbody{fill:var(--plum2)}
-.hen .chicks circle:not([fill]){fill:#F6C66B}
-.hen .hwing{transform-origin:250px 140px;transform-box:view-box;transition:transform 1s cubic-bezier(.3,1.3,.5,1)}
-.hen .hwing path{fill:var(--plum);stroke:#ffffff55;stroke-width:2}
-.hen.low .hwing{transform:rotate(-20deg) scaleX(1.4)}
-:root[data-theme="night"] .hen .hwing path{fill:#4a3a9a}
 
 /* sort lanes */
 .road.g{background:linear-gradient(to bottom,color-mix(in srgb,var(--seasoft) 80%,var(--card)),var(--card))}
@@ -868,17 +797,6 @@ a.ib{color:inherit;text-decoration:none}
 .trait.ok-l,.trait.ok-t{background:var(--sunsoft);border-color:var(--sun)}
 .trait.ok-n,.trait.ok-f{background:var(--rosesoft);border-color:var(--rose)}
 
-/* 'idin puzzle */
-.puzzle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-.pz{position:relative;height:84px;border:0;border-radius:18px;color:#fff;font-family:"Display";font-size:1.35rem;box-shadow:0 10px 18px -12px #000a;transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
-.pz span{filter:blur(6px);transition:filter .4s;user-select:none}
-.pz::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;background:inherit;top:50%;transform:translateY(-50%)}
-.pz.p1{background:#11806F}.pz.p2{background:#D98A1C}.pz.p3{background:#C93A60}.pz.p4{background:#5A45B5}
-.pz.p1::after,.pz.p3::after{inset-inline-start:-13px}.pz.p2::after,.pz.p4::after{inset-inline-end:-13px}
-.pz.on span{filter:none}
-.pz.p1.on{transform:translate(6px,-6px) rotate(-3deg)}.pz.p2.on{transform:translate(-6px,-6px) rotate(3deg)}
-.pz.p3.on{transform:translate(6px,6px) rotate(3deg)}.pz.p4.on{transform:translate(-6px,6px) rotate(-3deg)}
-
 /* flip cards */
 .flip2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .flip2 .fl{height:130px}
@@ -887,48 +805,6 @@ a.ib{color:inherit;text-decoration:none}
 .flip2 .front small{opacity:.85}
 .flip2 .back{font-size:.95rem;line-height:1.8}
 .flip2 .back b{font-family:"Display";font-size:1.3rem;color:var(--sun)}
-
-/* sada' + i'rad halves */
-.split2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.half{border:0;border-radius:24px;padding:16px 18px;text-align:start;display:grid;gap:6px;color:#fff;box-shadow:var(--sh);align-content:start}
-.half.a{background:linear-gradient(150deg,#8f2443,#C93A60)}
-.half.b{background:linear-gradient(150deg,#33246E,#5A45B5)}
-.half small{font-weight:700;opacity:.85}
-.half b.q{font-size:1.5rem;line-height:1.9}
-.half span{font-weight:600;line-height:1.9;filter:blur(6px);transition:filter .4s;user-select:none}
-.half.on span{filter:none;user-select:auto}
-
-/* three meanings pyramid */
-.pyr{display:grid;gap:8px;justify-items:center;margin-top:10px}
-.tier{border:0;border-radius:16px;padding:10px 14px;color:#fff;font-weight:600;line-height:1.8;text-align:center;transition:all .4s}
-.tier.t1{width:72%;background:#2B7FB8}.tier.t2{width:86%;background:#1f6b9c}.tier.t3{width:100%;background:#15557e}
-.tier>span{filter:blur(6px);transition:filter .4s;user-select:none}
-.tier .q{font-size:1.1rem}
-.tier.on>span{filter:none;user-select:auto}
-.tier.on{box-shadow:0 0 0 3px var(--sun2)}
-
-/* tasbih counter */
-.tasbih-card{display:grid;gap:8px}
-.tsb{border:0;background:none;width:160px;height:160px;margin:0 auto;position:relative;display:grid;place-items:center;padding:0}
-.tsb svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-.tsb .tr0{fill:var(--card2);stroke:var(--line);stroke-width:8}
-.tsb .tr1{fill:none;stroke:var(--sea);stroke-width:8;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:326.7;transition:stroke-dashoffset .3s}
-.tsb>span{position:relative;display:grid;justify-items:center;line-height:1.3}
-.tsb b{font-family:"Display";font-size:2.4rem;color:var(--sea)}
-.tsb small{font-weight:700;font-size:.8rem;color:var(--ink2)}
-.tsb.pulse{animation:pop .3s}
-
-/* life path */
-.life{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;position:relative;padding-top:4px}
-.life::before{content:"";position:absolute;top:30px;inset-inline:8%;height:4px;background:var(--line);border-radius:2px}
-.lf{position:relative;border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:8px 4px;display:grid;justify-items:center;gap:0;text-align:center;transition:all .35s}
-.lf b{font-size:.92rem}
-.lf small{font-size:.72rem;color:var(--ink2);line-height:1.5}
-.lf.on{border-color:var(--sea);background:var(--seasoft)}
-.lf.on b{color:var(--sea)}
-.lf.end{background:var(--ashsoft);opacity:.6}
-.lf.end.on{opacity:1;border-color:var(--sun);background:var(--sunsoft)}
-.lf.end.on b{color:var(--sun)}
 
 /* ideas */
 .ideas{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
@@ -999,6 +875,186 @@ a.ib{color:inherit;text-decoration:none}
 .envelope .btn{justify-self:start}
 .envelope.fly{animation:envfly 1.1s ease}
 @keyframes envfly{30%{transform:translateY(-6px) rotate(-2deg)}60%{transform:translateX(-14px) rotate(2deg)}100%{transform:none}}
+
+
+/* misc + responsive (generic parts) */
+.grid3.k3c{align-items:start}
+.opts-q.yn{grid-template-columns:1fr 1fr;margin-top:6px}
+.mcq .mq{margin:0 0 10px;font-weight:700;line-height:1.9}
+.mcq .mq .q{color:var(--sea);font-size:1.2rem}
+.mo{display:grid;gap:8px}
+.mo button{display:flex;gap:10px;align-items:center;text-align:start;border:1.5px solid var(--line);background:var(--card2);border-radius:14px;padding:8px 12px;font-weight:600;transition:all .3s}
+.mo button i{font-style:normal;width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;line-height:1;background:var(--bg2);color:var(--ink);flex:none;font-weight:700}
+.mo button.ok{border-color:var(--sea);background:var(--seasoft);color:var(--sea)}
+.mo button.ok i{background:var(--sea);color:#fff}
+.mo button.no{border-color:var(--rose);background:var(--rosesoft)}
+.mcq.done .mo button:not(.ok){opacity:.5}
+.vows.three{grid-template-columns:repeat(3,1fr)}
+.vows.three .vow{padding:20px 14px}
+.sura-card .facts{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.sura-card .facts li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 14px;border-radius:14px;background:var(--card2);border:1.5px solid var(--line)}
+.sura-card .facts li b{color:var(--plum)}
+.sura-card .facts li span{font-weight:700;color:var(--sea);text-align:end}
+.sits{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}
+.sit{border:1.5px solid var(--line);background:var(--card);border-radius:20px;padding:14px;display:grid;gap:10px;align-content:start;position:relative;transition:border-color .3s,background .3s}
+.sit .n{position:absolute;top:10px;inset-inline-end:12px;font-family:"Display";color:var(--ink2);opacity:.6}
+.sit p{margin:0;font-weight:600;line-height:1.9;padding-inline-end:22px}
+.so{display:flex;flex-wrap:wrap;gap:6px}
+.so button{border:1.5px solid var(--line);background:var(--card2);border-radius:999px;padding:5px 12px;font-weight:700;font-size:.86rem;transition:all .25s}
+.so button.ok{background:var(--sea);border-color:var(--sea);color:#fff}
+.so button.no{background:var(--rosesoft);border-color:var(--rose);color:var(--rose)}
+.sit.done{border-color:var(--sea);background:color-mix(in srgb,var(--seasoft) 40%,var(--card))}
+.sit.done .so button:not(.ok){display:none}
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flips .fl{height:150px}
+.flips .front{gap:6px}
+.flips .front svg{width:40px;height:40px;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.flips .front b{font-size:1.15rem;line-height:1.6}
+.flips .back{font-size:.92rem;line-height:1.8}
+.olist{margin:6px 0 0;padding-inline-start:22px}
+.olist li{margin-bottom:4px}
+.ta{width:100%;min-height:84px;resize:vertical;border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;background:var(--card2);line-height:1.9}
+@media (max-width:980px){
+  .grid3.k3c{grid-template-columns:1fr}
+  .code-grid{grid-template-columns:1fr}
+  .vault{position:static}
+  .sits{grid-template-columns:1fr}
+  .flips{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .vows.three{grid-template-columns:1fr}
+  .chests{grid-template-columns:1fr}
+  .vs2,.ideas,.flip2,.roads.three,.locks.wide .lock{grid-template-columns:1fr}
+  .hidayat{border-radius:20px}
+  .tfr{grid-template-columns:auto 1fr}
+  .tfb{grid-column:1/-1;justify-content:flex-end}
+  .flips{grid-template-columns:1fr}
+}
+
+/* درس الحجر ٨٥–٩٩: مكوّنات خاصة بالدرس */
+.cover h1.h8-h1{font-size:clamp(1.8rem,3.7vw,3.1rem)}
+.cover h1.h8-h1 .saw{font-family:"Body";font-size:.5em;vertical-align:.35em}
+.h8rays path{opacity:.25;animation:h8ray 4.2s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes h8ray{0%,100%{opacity:.22}50%{opacity:.85}}
+
+.vows.six{grid-template-columns:repeat(3,1fr)}
+.vows.six .vow{padding:16px 12px}
+.vows.six .vow .star{width:46px;height:46px}
+
+/* three beautiful: wooden signs */
+.signs{display:grid;gap:12px;justify-items:center;padding-top:6px;position:relative}
+.signs::before{content:"";position:absolute;top:0;bottom:10px;left:50%;width:4px;transform:translateX(-50%);background:repeating-linear-gradient(to bottom,#8a5a2b 0 8px,#a9733e 8px 12px);border-radius:2px}
+.sign{position:relative;width:min(100%,330px);border:0;border-radius:14px;padding:12px 16px;color:#3b230e;
+  background:repeating-linear-gradient(90deg,#00000008 0 2px,transparent 2px 14px),linear-gradient(to bottom,#E9B97A,#C98A4B);box-shadow:inset 0 0 0 3px #a9733e,0 10px 18px -12px #000a;display:grid;gap:2px;text-align:center;transition:transform .3s}
+.sign:nth-child(2){transform:rotate(-1.5deg)}.sign:nth-child(3){transform:rotate(1.2deg)}
+.sign b{font-family:"Display";font-size:1.25rem}
+.sign span{font-weight:700;filter:blur(6px);transition:filter .4s;user-select:none}
+.sign.on span{filter:none}
+.sign.on{box-shadow:inset 0 0 0 3px #11806F,0 10px 18px -12px #000a}
+
+/* hourglass */
+.hg{width:44px;height:62px;margin:8px auto 10px;position:relative;animation:hgflip 4s ease-in-out infinite}
+.hg i{position:absolute;left:0;right:0;height:50%;border:3px solid var(--sun);background:linear-gradient(to bottom,transparent 40%,var(--sun2) 40%)}
+.hg i:first-child{top:0;border-radius:6px 6px 50% 50%/6px 6px 100% 100%}
+.hg i:last-child{bottom:0;border-radius:50% 50% 6px 6px/100% 100% 6px 6px;background:linear-gradient(to top,var(--sun2) 45%,transparent 45%)}
+@keyframes hgflip{0%,80%{transform:rotate(0)}100%{transform:rotate(180deg)}}
+
+/* seven verses of al-fatiha */
+.seven{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;position:relative}
+.s7{border:1.5px solid var(--line);background:var(--card);border-radius:20px;padding:10px 8px 12px;display:grid;justify-items:center;align-content:start;gap:4px;box-shadow:var(--sh);transition:all .4s;min-height:150px}
+.st7{position:relative;width:52px;height:52px;display:grid;place-items:center}
+.st7 svg{position:absolute;inset:0;width:100%;height:100%}
+.st7 svg path{fill:var(--lilac);stroke:var(--plum2);stroke-width:1.2;transition:all .5s}
+.st7 b{position:relative;font-family:"Display";color:var(--plum);font-size:1.1rem;line-height:1;padding-top:3px}
+.s7 .q{font-size:1.08rem;line-height:1.9;text-align:center;color:var(--sea);filter:blur(6px);transition:filter .5s;user-select:none}
+.s7.on{border-color:var(--sun);background:color-mix(in srgb,var(--sunsoft) 55%,var(--card))}
+.s7.on .st7 svg path{fill:var(--sun2);stroke:var(--sun)}
+.s7.on .st7{animation:pop .5s}
+.s7.on .q{filter:none;user-select:auto}
+.s7cap{grid-column:1/-1;text-align:center;margin:4px 0 0;font-family:"Display";font-size:1.3rem;color:var(--sun);opacity:0;transition:opacity .6s}
+.seven.all .s7cap{opacity:1}
+
+/* logic chain */
+.logic{display:grid;gap:8px;margin-top:8px}
+.lstep{display:flex;gap:10px;align-items:center;text-align:start;border:1.5px dashed var(--line);background:var(--card2);border-radius:16px;padding:8px 12px;font-weight:600;line-height:1.8;transition:all .35s;position:relative}
+.lstep .n{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--bg2);font-weight:700;flex:none}
+.lstep>span:last-child{filter:blur(5px);transition:filter .4s;user-select:none}
+.lstep .q{font-size:1.1rem}
+.lstep.on{border-style:solid;border-color:var(--sea);background:color-mix(in srgb,var(--seasoft) 50%,var(--card))}
+.lstep.on .n{background:var(--sea);color:#fff}
+.lstep.on>span:last-child{filter:none;user-select:auto}
+.logic.done .lstep:last-child{border-color:var(--sun);background:color-mix(in srgb,var(--sunsoft) 70%,var(--card))}
+
+/* scale */
+.scale svg{width:100%;max-width:380px;display:block;margin:0 auto;overflow:visible}
+.scale .beam{transform-origin:200px 50px;transform-box:view-box;transition:transform 1.2s cubic-bezier(.3,1.4,.5,1)}
+.scale.tip .beam{transform:rotate(9deg)}
+.scale .pan{cursor:pointer;opacity:.45;transition:opacity .4s,transform 1.2s cubic-bezier(.3,1.4,.5,1)}
+.scale.tip .pr{transform:translateY(16px)}.scale.tip .pl{transform:translateY(-16px)}
+.scale .pan.on{opacity:1}
+.scale text{font-family:"Display";font-size:20px;text-anchor:middle;fill:var(--ink);direction:rtl}
+
+/* lowering the wing */
+.hen svg{width:100%;max-width:360px;display:block;margin:0 auto;cursor:pointer}
+.hen .hbody{fill:var(--plum2)}
+.hen .chicks circle:not([fill]){fill:#F6C66B}
+.hen .hwing{transform-origin:250px 140px;transform-box:view-box;transition:transform 1s cubic-bezier(.3,1.3,.5,1)}
+.hen .hwing path{fill:var(--plum);stroke:#ffffff55;stroke-width:2}
+.hen.low .hwing{transform:rotate(-20deg) scaleX(1.4)}
+:root[data-theme="night"] .hen .hwing path{fill:#4a3a9a}
+
+/* 'idin puzzle */
+.puzzle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.pz{position:relative;height:84px;border:0;border-radius:18px;color:#fff;font-family:"Display";font-size:1.35rem;box-shadow:0 10px 18px -12px #000a;transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.pz span{filter:blur(6px);transition:filter .4s;user-select:none}
+.pz::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;background:inherit;top:50%;transform:translateY(-50%)}
+.pz.p1{background:#11806F}.pz.p2{background:#D98A1C}.pz.p3{background:#C93A60}.pz.p4{background:#5A45B5}
+.pz.p1::after,.pz.p3::after{inset-inline-start:-13px}.pz.p2::after,.pz.p4::after{inset-inline-end:-13px}
+.pz.on span{filter:none}
+.pz.p1.on{transform:translate(6px,-6px) rotate(-3deg)}.pz.p2.on{transform:translate(-6px,-6px) rotate(3deg)}
+.pz.p3.on{transform:translate(6px,6px) rotate(3deg)}.pz.p4.on{transform:translate(-6px,6px) rotate(-3deg)}
+
+/* sada' + i'rad halves */
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.half{border:0;border-radius:24px;padding:16px 18px;text-align:start;display:grid;gap:6px;color:#fff;box-shadow:var(--sh);align-content:start}
+.half.a{background:linear-gradient(150deg,#8f2443,#C93A60)}
+.half.b{background:linear-gradient(150deg,#33246E,#5A45B5)}
+.half small{font-weight:700;opacity:.85}
+.half b.q{font-size:1.5rem;line-height:1.9}
+.half span{font-weight:600;line-height:1.9;filter:blur(6px);transition:filter .4s;user-select:none}
+.half.on span{filter:none;user-select:auto}
+
+/* three meanings pyramid */
+.pyr{display:grid;gap:8px;justify-items:center;margin-top:10px}
+.tier{border:0;border-radius:16px;padding:10px 14px;color:#fff;font-weight:600;line-height:1.8;text-align:center;transition:all .4s}
+.tier.t1{width:72%;background:#2B7FB8}.tier.t2{width:86%;background:#1f6b9c}.tier.t3{width:100%;background:#15557e}
+.tier>span{filter:blur(6px);transition:filter .4s;user-select:none}
+.tier .q{font-size:1.1rem}
+.tier.on>span{filter:none;user-select:auto}
+.tier.on{box-shadow:0 0 0 3px var(--sun2)}
+
+/* tasbih counter */
+.tasbih-card{display:grid;gap:8px}
+.tsb{border:0;background:none;width:160px;height:160px;margin:0 auto;position:relative;display:grid;place-items:center;padding:0}
+.tsb svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.tsb .tr0{fill:var(--card2);stroke:var(--line);stroke-width:8}
+.tsb .tr1{fill:none;stroke:var(--sea);stroke-width:8;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:326.7;transition:stroke-dashoffset .3s}
+.tsb>span{position:relative;display:grid;justify-items:center;line-height:1.3}
+.tsb b{font-family:"Display";font-size:2.4rem;color:var(--sea)}
+.tsb small{font-weight:700;font-size:.8rem;color:var(--ink2)}
+.tsb.pulse{animation:pop .3s}
+
+/* life path */
+.life{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;position:relative;padding-top:4px}
+.life::before{content:"";position:absolute;top:30px;inset-inline:8%;height:4px;background:var(--line);border-radius:2px}
+.lf{position:relative;border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:8px 4px;display:grid;justify-items:center;gap:0;text-align:center;transition:all .35s}
+.lf b{font-size:.92rem}
+.lf small{font-size:.72rem;color:var(--ink2);line-height:1.5}
+.lf.on{border-color:var(--sea);background:var(--seasoft)}
+.lf.on b{color:var(--sea)}
+.lf.end{background:var(--ashsoft);opacity:.6}
+.lf.end.on{opacity:1;border-color:var(--sun);background:var(--sunsoft)}
+.lf.end.on b{color:var(--sun)}
 
 /* misc */
 .grid3.k3c{align-items:start}
@@ -2327,40 +2383,22 @@ function boot(){
   if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("../sw.js").catch(()=>{});
 }
 
-/* درس الحجر ٨٥–٩٩: تفاعلات المحطات (الهيكل المشترك في shared/core.js) */
+/* أدوات مشتركة لدروس الوحدتين الثامنة والتاسعة (تُضاف قبل lesson.js عند kit=True) */
 const qwrap=s=>s.replace(/(﴿[^﴾]+﴾)/g,'<span class="q">$1</span>');
 const VN=n=>`<span class='vn'>${ar(n)}</span>`;
 const after=(sel,fn)=>$(sel).addEventListener("click",()=>setTimeout(fn));
 /* بطاقات تنقلب (.fl) في كل المحطات */
 document.addEventListener("click",e=>{const f=e.target.closest(".fl");if(f){f.classList.toggle("flip");sfx.tap()}});
 
-/* ========== 1 class rules ========== */
-$$("#vows .vow").forEach(b=>b.onclick=()=>{if(b.classList.contains("lit"))return;b.classList.add("lit");const n=$$("#vows .lit").length,all=$$("#vows .vow").length;
-  if(n===all){$("#sky").classList.add("dawn");$("#pledgeMsg").textContent="أضاءت النجمات الستّ";confetti();sfx.win()}else{$("#pledgeMsg").textContent="أضاءت "+ar(n)+" من "+ar(all);sfx.ok()}});
-
-/* ========== 2 dawn ========== */
-let dawnT=[];
-function dawnPlay(){const d=$("#dawn");dawnT.forEach(clearTimeout);dawnT=[];d.classList.remove("up");$$(".ln",d).forEach(l=>l.classList.remove("on"));
-  dawnT.push(setTimeout(()=>d.classList.add("up"),120));$$(".ln",d).forEach((l,i)=>dawnT.push(setTimeout(()=>l.classList.add("on"),800+i*1000)))}
-ENTER[2]=dawnPlay;$("#dawnAgain").onclick=dawnPlay;
-
-/* ========== 3 review chests ========== */
-$("#chests").onclick=e=>{const b=e.target.closest(".box");if(!b)return;const c=b.closest(".chest");if(c.classList.contains("open"))return;c.classList.add("open");sfx.ok();
-  if($$("#chests .open").length===3)sfx.win()};
-
-/* ========== 4 hook: adab of da'wah ========== */
-$$("#topics .clue").forEach(c=>c.onclick=()=>{if(c.classList.contains("on"))return;c.classList.add("on");sfx.ok();
-  if($$("#topics .clue.on").length===$$("#topics .clue").length){$("#todayBox").classList.add("open");sfx.win()}});
-
 /* ---------- shared helpers ---------- */
 /* key → lock: اختاري المفتاح ثم المسي موضعه */
 function keyLock(keysSel,locksSel,fbSel,ITEMS,EXTRA,doneMsg){
   let sel=null;const keys=ITEMS.map((x,i)=>[x[2],i]).concat((EXTRA||[]).map(t=>[t,-1]));
-  $(keysSel).innerHTML=shuffle(keys).map(([t,i])=>`<button class="key" data-i="${i}"><svg viewBox="0 0 24 24"><use href="#i-key"/></svg>${t}</button>`).join("");
+  $(keysSel).innerHTML=shuffle(keys).map(([t,i])=>`<button class="key" data-i="${i}"><svg viewBox="0 0 24 24"><use href="#i-key"/></svg>${qwrap(t)}</button>`).join("");
   $(locksSel).innerHTML=ITEMS.map(([v,r],i)=>`<div class="lock" data-i="${i}"><div class="${v.startsWith("﴿")?"q":"tx"}">${v} <small>[${r}]</small></div><div class="slot">؟</div></div>`).join("");
   $(keysSel).onclick=e=>{const k=e.target.closest(".key");if(!k)return;$$(keysSel+" .key").forEach(x=>x.classList.toggle("sel",x===k&&!x.classList.contains("sel")));sel=k.classList.contains("sel")?k:null;sfx.tap()};
   $(locksSel).onclick=e=>{const l=e.target.closest(".lock");if(!l||l.classList.contains("ok"))return;if(!sel){toast("اختاري أولًا");return}
-    if(sel.dataset.i===l.dataset.i){l.classList.add("ok");$(".slot",l).textContent=ITEMS[l.dataset.i][2];sel.classList.add("used");sel.classList.remove("sel");sel=null;sfx.ok();
+    if(sel.dataset.i===l.dataset.i){l.classList.add("ok");$(".slot",l).innerHTML=qwrap(ITEMS[l.dataset.i][2]);sel.classList.add("used");sel.classList.remove("sel");sel=null;sfx.ok();
       if($$(locksSel+" .ok").length===ITEMS.length){$(fbSel).textContent=doneMsg;$$(keysSel+' .key[data-i="-1"]').forEach(k=>k.classList.add("used"));confetti();sfx.win()}}
     else{l.classList.add("shake");setTimeout(()=>l.classList.remove("shake"),400);sfx.no()}};
 }
@@ -2399,6 +2437,89 @@ function huntInit(sel,nSel,barSel,fbSel,ITEMS,doneMsg){
 /* المسي العناصر كلها لتُضاء، ثم نفّذي ما بعدها */
 function lightAll(sel,item,fn){$(sel).addEventListener("click",e=>{const b=e.target.closest(item);if(!b||b.classList.contains("on"))return;b.classList.add("on");sfx.ok();
   if($$(sel+" "+item+".on").length===$$(sel+" "+item).length){if(fn)fn();sfx.win()}})}
+
+/* situations: لكل موقف خيارات، والصحيح ITEMS[i][1] */
+function sitInit(sel,fbSel,ITEMS,OPTS,doneMsg){
+  $(sel).innerHTML=ITEMS.map(([t],i)=>`<div class="sit" data-i="${i}"><span class="n">${ar(i+1)}</span><p>${qwrap(t)}</p><div class="so">${OPTS.map((o,k)=>`<button data-k="${k}">${o}</button>`).join("")}</div></div>`).join("");
+  $(sel).onclick=e=>{const b=e.target.closest(".so button");if(!b)return;const s=b.closest(".sit");if(s.classList.contains("done"))return;
+    if(+b.dataset.k===ITEMS[s.dataset.i][1]){b.classList.add("ok");s.classList.add("done");sfx.ok();if($$(sel+" .sit.done").length===ITEMS.length){$(fbSel).textContent=doneMsg;confetti();sfx.win()}}
+    else{b.classList.add("no");s.classList.add("shake");setTimeout(()=>{s.classList.remove("shake");b.classList.remove("no")},700);sfx.no()}};
+}
+/* review film strip: REV=[[عنوان، سؤال، إجابة]] في #frames و #filmPick */
+function filmInit(REV){
+  $("#frames").innerHTML=REV.map(([w,q,a],i)=>`<button class="frame" data-i="${i}"><div class="in"><div class="fc front"><span class="n">${ar(i+1)}</span><b>${w}</b><small>${q}</small></div><div class="fc back"><em>الإجابة</em>${qwrap(a)}</div></div></button>`).join("");
+  $("#filmPick").innerHTML=REV.map((_,i)=>`<button data-i="${i}">${ar(i+1)}</button>`).join("");
+  $("#frames").onclick=e=>{const f=e.target.closest(".frame");if(!f)return;f.classList.toggle("flip");$$("#filmPick button")[f.dataset.i].classList.add("done");sfx.tap()};
+  $("#filmPick").onclick=e=>{const b=e.target.closest("button");if(!b)return;const f=$$("#frames .frame")[b.dataset.i];f.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});setTimeout(()=>{f.classList.add("flip");b.classList.add("done");sfx.ok()},450)};
+}
+/* اختيار من متعدد داخل البطاقات .mcq[data-a] */
+function mcqInit(){$$(".mcq").forEach(m=>m.onclick=e=>{const b=e.target.closest(".mo button");if(!b||m.classList.contains("done"))return;const k=$$(".mo button",m).indexOf(b);
+  if(k===+m.dataset.a){b.classList.add("ok");m.classList.add("done");sfx.ok()}else{b.classList.add("no");b.classList.add("shake");setTimeout(()=>b.classList.remove("shake"),400);sfx.no()}})}
+/* حفظ الحقول على الجهاز: sel يطابق input/textarea */
+function keepFields(sel,key){const v=store.get(key,[]);$$(sel).forEach((t,i)=>{t.value=v[i]||"";t.oninput=()=>{v[i]=t.value;store.set(key,v)}})}
+/* محطة الربط بالوطن: بطاقة «قيمتي ومبادرتي» في #athar و #pcard (#pName #pStep #pQ #pN #pD #pPrint #pSave)
+   O={items:[[القيمة، مبادرة مقترحة، اللون، الآية، أيقونة SVG]], label, def} */
+const ICO={drop:'<path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/>',
+  wave:'<path d="M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
+  leaf:'<path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/><path d="M5 19l8-8"/>',
+  bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/>',
+  heart:'<path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10C19.5 15.4 12 20 12 20z"/>',
+  shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+  book:'<path d="M12 6.5c-2-1.6-5-2-8-1.5V18c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6-.1-8 1.5z"/><path d="M12 6.5v13"/>',
+  hands:'<path d="M4 14c3-1 5 0 7 2l5-1c1 0 1.5 1.5.5 2l-6 2.5c-2 .8-4 .5-6.5-.5"/><path d="M14 12a3 3 0 1 0-4-4.5A3 3 0 0 0 14 12z"/>',
+  star:'<path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3l-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z"/>'};
+function valuesCard(O){
+  const A=O.items;let athI=store.get("athI",-1),vURL="",vFile=null,vJob=0,vT=null;
+  $("#athar").innerHTML=A.map(([t,s,c,,ic],i)=>`<button class="ath" style="--c:${c}" data-i="${i}"><svg viewBox="0 0 24 24">${ic}</svg><b>${t}</b><small>${s}</small></button>`).join("");
+  $("#pName").value=store.get("pName","");$("#pStep").value=store.get("pStep","");
+  function render(){$$("#athar .ath").forEach((b,i)=>b.classList.toggle("on",i===athI));const a=A[athI],nm=$("#pName").value.trim(),st=$("#pStep").value.trim();
+    $("#pN").textContent=nm||"اسمك هنا";$("#pQ").textContent=a?a[3]:O.def;
+    $("#pD").innerHTML=a?`قيمتي: <b>${a[0]}</b><br>مبادرتي: ${esc(st||a[1])}`:"اختاري قيمة من الأعلى";
+    store.set("pName",nm);store.set("pStep",st);store.set("athI",athI);clearTimeout(vT);vT=setTimeout(draw,250)}
+  $("#athar").onclick=e=>{const b=e.target.closest(".ath");if(!b)return;athI=+b.dataset.i;render();sfx.ok()};
+  $("#pName").oninput=render;$("#pStep").oninput=render;
+  async function draw(){
+    if(athI<0)return;const job=++vJob;
+    try{await Promise.all(["700 86px Display","56px Mushaf","600 46px Body"].map(f=>document.fonts.load(f)))}catch(e){}
+    const logo=await loadImg(LOGO_SRC);if(job!==vJob)return;
+    const a=A[athI],W=1080,H=1350,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+    const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#0d4f46");g.addColorStop(.55,"#11806F");g.addColorStop(1,"#33246E");x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.fillStyle="#F6C66B33";x.beginPath();x.arc(120,120,260,0,7);x.fill();
+    x.direction="rtl";x.textAlign="right";x.fillStyle="#fff";
+    x.font="600 34px Body";x.fillText(O.label,W-90,150);
+    x.font="56px Mushaf";let y=290;wrapLines(x,a[3],W-180).forEach(l=>{x.fillText(l,W-90,y);y+=110});
+    x.font="700 86px Display";x.fillText($("#pName").value.trim()||"طالبة مجتهدة",W-90,y+150);
+    x.font="600 46px Body";x.fillStyle="#F6C66B";x.fillText("قيمتي: "+a[0],W-90,y+260);
+    x.fillStyle="#fff";x.font="400 42px Body";wrapLines(x,"مبادرتي: "+($("#pStep").value.trim()||a[1]),W-180).forEach((l,i)=>x.fillText(l,W-90,y+350+i*72));
+    x.font="600 34px Body";x.fillStyle="#F6C66B";x.fillText("وطن طموح • اقتصاد مزدهر • مجتمع حيوي",W-90,H-210);
+    x.font="400 30px Body";x.fillStyle="#ffffffcc";x.fillText("أستاذة المادة: "+TEACHER,W-90,H-130);x.fillText("مديرة المدرسة: "+PRINCIPAL,W-90,H-84);
+    if(logo)x.drawImage(tinted(logo,200,200*logo.naturalHeight/logo.naturalWidth,"#fff"),80,H-230);
+    vURL=c.toDataURL("image/png");c.toBlob(b=>{if(job===vJob&&b)try{vFile=new File([b],"بطاقة-قيمتي.png",{type:"image/png"})}catch(e){vFile=null}},"image/png");
+  }
+  function ready(){if(athI<0){toast("اختاري قيمة أولًا");return false}if(!vURL){toast("لحظة… يتم تجهيز البطاقة");draw();return false}return true}
+  $("#pPrint").onclick=()=>{if(ready())printImage(vURL,"بطاقة-قيمتي.png")};
+  $("#pSave").onclick=()=>{if(ready()){sfx.win();shareImage(vURL,vFile,"بطاقة-قيمتي.png","بطاقة قيمتي")}};
+  render();
+}
+
+/* درس الحجر ٨٥–٩٩: تفاعلات المحطات (الهيكل المشترك في shared/core.js) */
+/* ========== 1 class rules ========== */
+$$("#vows .vow").forEach(b=>b.onclick=()=>{if(b.classList.contains("lit"))return;b.classList.add("lit");const n=$$("#vows .lit").length,all=$$("#vows .vow").length;
+  if(n===all){$("#sky").classList.add("dawn");$("#pledgeMsg").textContent="أضاءت النجمات الستّ";confetti();sfx.win()}else{$("#pledgeMsg").textContent="أضاءت "+ar(n)+" من "+ar(all);sfx.ok()}});
+
+/* ========== 2 dawn ========== */
+let dawnT=[];
+function dawnPlay(){const d=$("#dawn");dawnT.forEach(clearTimeout);dawnT=[];d.classList.remove("up");$$(".ln",d).forEach(l=>l.classList.remove("on"));
+  dawnT.push(setTimeout(()=>d.classList.add("up"),120));$$(".ln",d).forEach((l,i)=>dawnT.push(setTimeout(()=>l.classList.add("on"),800+i*1000)))}
+ENTER[2]=dawnPlay;$("#dawnAgain").onclick=dawnPlay;
+
+/* ========== 3 review chests ========== */
+$("#chests").onclick=e=>{const b=e.target.closest(".box");if(!b)return;const c=b.closest(".chest");if(c.classList.contains("open"))return;c.classList.add("open");sfx.ok();
+  if($$("#chests .open").length===3)sfx.win()};
+
+/* ========== 4 hook: adab of da'wah ========== */
+$$("#topics .clue").forEach(c=>c.onclick=()=>{if(c.classList.contains("on"))return;c.classList.add("on");sfx.ok();
+  if($$("#topics .clue.on").length===$$("#topics .clue").length){$("#todayBox").classList.add("open");sfx.win()}});
 
 /* ========== 5 verses: s فضل الله وآدابه، h المكذبون والمستهزئون، g التسبيح والعبادة، v المفردات، j لفظ الجلالة ========== */
 const T85="يخبر الله تعالى عن خلقه السماوات والأرض لحِكَم عظيمة، وأن يوم القيامة آتٍ لا محالة، ويوصي نبيه ﷺ بالصفح عن المشركين صفحًا جميلًا لا أذيّة فيه.";

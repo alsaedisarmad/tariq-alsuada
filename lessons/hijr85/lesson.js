@@ -1,10 +1,4 @@
 /* درس الحجر ٨٥–٩٩: تفاعلات المحطات (الهيكل المشترك في shared/core.js) */
-const qwrap=s=>s.replace(/(﴿[^﴾]+﴾)/g,'<span class="q">$1</span>');
-const VN=n=>`<span class='vn'>${ar(n)}</span>`;
-const after=(sel,fn)=>$(sel).addEventListener("click",()=>setTimeout(fn));
-/* بطاقات تنقلب (.fl) في كل المحطات */
-document.addEventListener("click",e=>{const f=e.target.closest(".fl");if(f){f.classList.toggle("flip");sfx.tap()}});
-
 /* ========== 1 class rules ========== */
 $$("#vows .vow").forEach(b=>b.onclick=()=>{if(b.classList.contains("lit"))return;b.classList.add("lit");const n=$$("#vows .lit").length,all=$$("#vows .vow").length;
   if(n===all){$("#sky").classList.add("dawn");$("#pledgeMsg").textContent="أضاءت النجمات الستّ";confetti();sfx.win()}else{$("#pledgeMsg").textContent="أضاءت "+ar(n)+" من "+ar(all);sfx.ok()}});
@@ -22,54 +16,6 @@ $("#chests").onclick=e=>{const b=e.target.closest(".box");if(!b)return;const c=b
 /* ========== 4 hook: adab of da'wah ========== */
 $$("#topics .clue").forEach(c=>c.onclick=()=>{if(c.classList.contains("on"))return;c.classList.add("on");sfx.ok();
   if($$("#topics .clue.on").length===$$("#topics .clue").length){$("#todayBox").classList.add("open");sfx.win()}});
-
-/* ---------- shared helpers ---------- */
-/* key → lock: اختاري المفتاح ثم المسي موضعه */
-function keyLock(keysSel,locksSel,fbSel,ITEMS,EXTRA,doneMsg){
-  let sel=null;const keys=ITEMS.map((x,i)=>[x[2],i]).concat((EXTRA||[]).map(t=>[t,-1]));
-  $(keysSel).innerHTML=shuffle(keys).map(([t,i])=>`<button class="key" data-i="${i}"><svg viewBox="0 0 24 24"><use href="#i-key"/></svg>${t}</button>`).join("");
-  $(locksSel).innerHTML=ITEMS.map(([v,r],i)=>`<div class="lock" data-i="${i}"><div class="${v.startsWith("﴿")?"q":"tx"}">${v} <small>[${r}]</small></div><div class="slot">؟</div></div>`).join("");
-  $(keysSel).onclick=e=>{const k=e.target.closest(".key");if(!k)return;$$(keysSel+" .key").forEach(x=>x.classList.toggle("sel",x===k&&!x.classList.contains("sel")));sel=k.classList.contains("sel")?k:null;sfx.tap()};
-  $(locksSel).onclick=e=>{const l=e.target.closest(".lock");if(!l||l.classList.contains("ok"))return;if(!sel){toast("اختاري أولًا");return}
-    if(sel.dataset.i===l.dataset.i){l.classList.add("ok");$(".slot",l).textContent=ITEMS[l.dataset.i][2];sel.classList.add("used");sel.classList.remove("sel");sel=null;sfx.ok();
-      if($$(locksSel+" .ok").length===ITEMS.length){$(fbSel).textContent=doneMsg;$$(keysSel+' .key[data-i="-1"]').forEach(k=>k.classList.add("used"));confetti();sfx.win()}}
-    else{l.classList.add("shake");setTimeout(()=>l.classList.remove("shake"),400);sfx.no()}};
-}
-/* sort: المسي العبارة ثم المسي العمود المناسب */
-function sortInit(poolSel,lanesSel,fbSel,resetSel,ITEMS){
-  let sel=null;
-  const init=()=>{$(poolSel).innerHTML=shuffle(ITEMS.map((_,i)=>i)).map(i=>`<button class="trait" data-i="${i}">${qwrap(ITEMS[i][0])}</button>`).join("");$$(lanesSel+" .lane").forEach(l=>l.innerHTML="");$(fbSel).textContent="";sel=null};
-  $(poolSel).onclick=e=>{const c=e.target.closest(".trait");if(!c)return;$$(poolSel+" .trait").forEach(x=>x.classList.toggle("sel",x===c&&!x.classList.contains("sel")));sel=c.classList.contains("sel")?c:null;sfx.tap()};
-  $$(lanesSel+" .road").forEach(r=>r.onclick=()=>{if(!sel){if($(poolSel+" .trait"))toast("اختاري العبارة أولًا");return}
-    const i=+sel.dataset.i;
-    if(ITEMS[i][1]===r.dataset.r){sel.classList.remove("sel");sel.classList.add("ok-"+r.dataset.r);sel.disabled=true;$(".lane",r).appendChild(sel);sel=null;$(fbSel).textContent="";sfx.ok();
-      if(!$(poolSel+" .trait")){$(fbSel).className="fb ok";$(fbSel).textContent="أحسنتِ!";confetti();sfx.win()}}
-    else{const c=sel;c.classList.add("shake");setTimeout(()=>c.classList.remove("shake"),400);$(fbSel).className="fb no";$(fbSel).textContent="حاولي مرة أخرى.";sfx.no()}});
-  $(resetSel).onclick=init;init();
-}
-/* gap fill: CHIPS بطاقات، و ACC[g] أرقام البطاقات المقبولة في الفراغ g */
-function gapInit(textSel,poolSel,fbSel,CHIPS,ACC,onDone){
-  let sel=null;
-  $(poolSel).innerHTML=shuffle(CHIPS.map((_,i)=>i)).map(i=>`<button class="chip gchip" data-i="${i}">${qwrap(CHIPS[i])}</button>`).join("");
-  $(poolSel).onclick=e=>{const c=e.target.closest(".gchip");if(!c)return;$$(poolSel+" .gchip").forEach(x=>x.classList.toggle("sel",x===c&&!x.classList.contains("sel")));sel=c.classList.contains("sel")?c:null;sfx.tap()};
-  $(textSel).onclick=e=>{const g=e.target.closest(".gap");if(!g||g.classList.contains("ok"))return;if(!sel){toast("اختاري البطاقة أولًا");return}
-    if(ACC[g.dataset.g].includes(+sel.dataset.i)){g.classList.add("ok");g.innerHTML=qwrap(CHIPS[sel.dataset.i]);sel.classList.add("used");sel.classList.remove("sel");sel=null;sfx.ok();
-      if($$(textSel+" .gap.ok").length===ACC.length){$(fbSel).textContent="أحسنتِ!";$$(poolSel+" .gchip").forEach(c=>c.classList.add("used"));if(onDone)onDone();confetti();sfx.win()}}
-    else{g.classList.add("shake");setTimeout(()=>g.classList.remove("shake"),400);sfx.no()}};
-}
-/* hunt: المسي الصحيح، واحذري الفخاخ. ITEMS=[[نص، رقم الآية أو "", السبب، صحيح؟]] */
-function huntInit(sel,nSel,barSel,fbSel,ITEMS,doneMsg){
-  let found=0;const N=ITEMS.filter(h=>h[3]).length;
-  $(sel).innerHTML=shuffle(ITEMS.map((h,i)=>i)).map(i=>`<button class="hw" data-i="${i}">${ITEMS[i][0]}${ITEMS[i][1]?`<sup>${ar(ITEMS[i][1])}</sup>`:""}</button>`).join("");
-  $(nSel).textContent=ar(0)+" / "+ar(N);
-  $(sel).onclick=e=>{const b=e.target.closest(".hw");if(!b||b.classList.contains("ok"))return;const h=ITEMS[b.dataset.i];
-    if(h[3]){b.classList.add("ok");if(h[2])b.insertAdjacentHTML("beforeend",`<small class="rc">${h[2]}</small>`);found++;$(nSel).textContent=ar(found)+" / "+ar(N);$(barSel).style.width=found/N*100+"%";sfx.ok();
-      if(found===N){$(fbSel).className="fb ok";$(fbSel).textContent=doneMsg;confetti();sfx.win()}}
-    else{b.classList.add("no");if(!$(".why",b))b.insertAdjacentHTML("beforeend",`<span class="why">${h[2]}</span>`);setTimeout(()=>{b.classList.remove("no");const w=$(".why",b);if(w)w.remove()},2600);sfx.no()}};
-}
-/* المسي العناصر كلها لتُضاء، ثم نفّذي ما بعدها */
-function lightAll(sel,item,fn){$(sel).addEventListener("click",e=>{const b=e.target.closest(item);if(!b||b.classList.contains("on"))return;b.classList.add("on");sfx.ok();
-  if($$(sel+" "+item+".on").length===$$(sel+" "+item).length){if(fn)fn();sfx.win()}})}
 
 /* ========== 5 verses: s فضل الله وآدابه، h المكذبون والمستهزئون، g التسبيح والعبادة، v المفردات، j لفظ الجلالة ========== */
 const T85="يخبر الله تعالى عن خلقه السماوات والأرض لحِكَم عظيمة، وأن يوم القيامة آتٍ لا محالة، ويوصي نبيه ﷺ بالصفح عن المشركين صفحًا جميلًا لا أذيّة فيه.";
